@@ -1,4 +1,5 @@
 import os
+import sys
 
 from typing import Any
 from dotenv import load_dotenv
@@ -9,11 +10,16 @@ from classes.element.temperature import Temperature as temp
 from classes.element.wind import Wind as wind
 from classes.element.weather import Weather as weather
 
+from views.mainFrame import MainFrame as App
+
+from PyQt5.QtWidgets import QApplication
+
 load_dotenv()
 
 pos=position(name="Nantes", country="FR", id=2990969, longitude=-1.5534, latitude=47.2173)
 
 def requestWeather() -> Any:
+    print(os.getenv('API_KEY'))
     rObject = request(os.getenv('API_KEY'))
     try:
         result = rObject.makeRequest(uri="https://api.openweathermap.org", url="data/2.5/weather", getParams="id="+str(pos.getId()))
@@ -31,6 +37,9 @@ def requestWeather() -> Any:
 
 def main() -> None:
     if __name__=='__main__':
+        app=QApplication(sys.argv)
+        ex=App()
         print(requestWeather())
+        sys.exit(app.exec_())
 
 main()

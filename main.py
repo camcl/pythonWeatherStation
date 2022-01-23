@@ -1,5 +1,7 @@
 import os
 import sys
+import threading
+import signal
 from time import sleep
 
 from typing import Any
@@ -13,19 +15,13 @@ from classes.element.weather import Weather as weather
 
 from views.mainFrame import MainFrame as App
 
-from PyQt5.QtWidgets import QApplication, QListWidget, QMessageBox
+from PyQt5.QtWidgets import QApplication
 
 load_dotenv()
 
-pos=position(name="Nantes", country="FR", id=2990969, longitude=-1.5534, latitude=47.2173)
+hasToReadWeather = True
 
-
-class myListWidget(QListWidget):
-
-   def Clicked(self,item):
-      QMessageBox.information(self, "ListWidget", "You clicked: "+item.text())
-
-def requestWeather() -> Any:
+def requestWeather(pos : position) -> Any:
     print(os.getenv('API_KEY'))
     rObject = request(os.getenv('API_KEY'))
     try:
@@ -42,14 +38,42 @@ def requestWeather() -> Any:
     except:
         print("Probleme sur la requete de meteo")
 
+def weatherThread():
+    while True:
+        global hasToReadWeather
+        if hasToReadWeather:
+            pos = ex.getCurrentPosition()
+            if(pos != None):
+                weatherData = requestWeather(pos)
+                print(weatherData)
+            else:
+                print("No position provided")
+            sleep(1)
+        else:
+            break
+    print("Weather thread stopped")
+
 def main() -> None:
     if __name__=='__main__':
-        app=QApplication(sys.argv)
-
-        ex=App()
         ex.printListOfCities(os.getenv("CITY_FILE"))
         ex.show()
-
         sys.exit(app.exec_())
+
+# Cette fonction gère l'appel à un signal d'arrêt
+def cleanUp():
+    global hasToReadWeather
+    hasToReadWeather = False
+    t1.join()
+    print("")
+    print("")
+    print("Arrêt du programme comme demandé par le signal")
+    
+app=QApplication(sys.argv)
+app.aboutToQuit.connect(cleanUp)
+
+ex=App()
+
+t1 = threading.Thread(target=weatherThread)
+t1.start()
 
 main()

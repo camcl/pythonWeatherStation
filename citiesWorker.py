@@ -1,5 +1,7 @@
 import json
 
+from typing import Any
+
 from PyQt5.QtCore import QObject, pyqtSignal
 from PyQt5.QtWidgets import QListWidget
 from views.cityList import CityList as cities
@@ -7,36 +9,67 @@ from views.myItem import MyItem
 from classes.element import position
 
 class CitiesWorker(QObject):
+
+    """
+        Signal de fin du worker 
+    """
     finished = pyqtSignal()
+    
+    """
+        Signal du worker en cours de travail
+    """
     progress = pyqtSignal(MyItem)
+
+    """
+        Nom du fichier
+    """
     __citiesFileName = None
-    __citiesList = None
-    __cities = None
+
+    """
+        Ville choisie
+    """
     __choosenCity = -1
 
     def setCitiesFileName(self, citiesFileName : str) -> None:
+        """
+        Setter du nom du fichier des villes
+
+        :param citiesFileName: Le nom du fichier 
+        :type citiesFileName: str
+        """
         self.__citiesFileName = citiesFileName
 
-    def getCitiesList(self) -> cities:
-        return self.__citiesList
-
     def setChoosenCity(self, choosenCity : int) -> None:
+        """
+        Setter de l'identifiant de la ville choisi préalablement choisie
+
+        :param choosenCity: L'identifiant de la ville
+        :type choosenCity: int
+        """
         self.__choosenCity = choosenCity
     
-    def loadNewCitiesList(self) -> None:
+    def loadNewCitiesList(self) -> Any:
         """
         Ouvre une liste de ville au format JSON formate OpenWeatherMap
+
+        :return: La liste des villes
+        :rtype: Any
         """
+        citiesList = {}
         if(self.__citiesFileName != None):
             with open(self.__citiesFileName, encoding="utf8") as file:
-                self.__cities = json.load(file)
+                citiesList = json.load(file)
         else:
-            self.__cities = None
+            citiesList = None
+        return citiesList
 
     def run(self):
+        """
+        Fonction principale du thread qui sera executee
+        """
         if(self.__citiesFileName != None):
-            self.loadNewCitiesList()
-            for data in self.__cities:
+            citiesList = self.loadNewCitiesList()
+            for data in citiesList:
                 if(data['country'] == "FR"):
                     qitem = MyItem(
                         position.Position(
@@ -49,5 +82,4 @@ class CitiesWorker(QObject):
                         )
                     self.progress.emit(qitem)
             self.finished.emit()
-        else:
-            self.progress.emit(1)
+        self.finished.emit()

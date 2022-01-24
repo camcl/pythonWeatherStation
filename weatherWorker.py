@@ -13,14 +13,44 @@ from classes.element.weather import Weather as weather
 
 
 class WeatherWorker(QObject):
+
+    """
+        Signal de fin du worker
+    """
     finished = pyqtSignal()
+
+    """
+        Signal de worker en cours
+    """
     progress = pyqtSignal(weather)
+
+    """
+        Cle d'API
+    """
     __apiKey = ""
+
+    """
+        Position courante
+    """
     __currentPosition = None
+
+    """
+        Doit-on ou non lire la meteo tel est la question ?
+    """
     __hasToReadWeather = True
+
+    """
+        Delai (en s) de la pause de lecture du worker
+    """
     __delayTime = 60
 
     def __requestWeather(self, pos : position) -> Any:
+        """
+            Cette fonction fait la requete API REST a OpenWeatherMap
+
+            :param pos: La position pour laquelle on fait la requete
+            :type pos: position
+        """
         rObject = request(self.__apiKey)
         try:
             result = rObject.makeRequest(uri="https://api.openweathermap.org", url="data/2.5/weather", getParams="id="+str(pos.getId()))
@@ -37,6 +67,12 @@ class WeatherWorker(QObject):
             print("Weather request problem")
 
     def setApiKey(self, apiKey : str) -> None:
+        """
+            Setter de la cle d'API
+
+            :param apiKey: La cle d'API
+            :type apiKey: str
+        """
         self.__apiKey = apiKey
 
     def setHasToReadWeather(self, hasToReadWeather : bool) -> None:
@@ -58,11 +94,20 @@ class WeatherWorker(QObject):
         self.__currentPosition = position
 
     def setDelayTime(self, delayTime : int) -> None:
+        """
+            Setter du delai de pause
+
+            :param delayTime: Le delai (en secondes) de la pause
+            :type delayTime: int
+        """
         self.__delayTime = delayTime
 
     def run(self):
+        """
+            La fonction principale du worker
+        """
         # On execute cette boucle en permanence. 
-        # Si jamais on demande l'arret alors hasToReadWeather devra passer a false ce qui provoquera un break de la boucle et son arret
+        # Si jamais on demande l'arret alors hasToReadWeather devra passer a false ce qui provoquera une sortie de la boucle
         while self.__hasToReadWeather:
             if(self.__currentPosition != None):
                 weatherData = self.__requestWeather(self.__currentPosition)

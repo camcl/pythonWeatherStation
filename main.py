@@ -23,11 +23,6 @@ from PyQt5.QtCore import QThread
 hasToReadWeather = True
 logger = logging.getLogger("WeatherApp")
 
-
-def loadCities() -> None:
-    ex.printListOfCities(os.getenv("CITY_FILE"))
-    logger.debug("Cities list is loaded")
-        
 def cleanUp():
     weatherWorker.setHasToReadWeather(False)
     with open("settings.ini", encoding="utf8", mode="w") as file:

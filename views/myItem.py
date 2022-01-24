@@ -16,7 +16,9 @@ class MyItem(QListWidgetItem):
             Constructeur
 
             :param position: Position de la ville
-            :return position: position.Position
+            :type position: position.Position
+            :param isChoosen: Si la position est celle choisie
+            :type isChoosen: bool
         """
         super().__init__()
         self.__position = position
@@ -36,4 +38,19 @@ class MyItem(QListWidgetItem):
         return self.__position
     
     def isChoosen(self) -> bool:
+        """
+        Retourne si la ville est choisie ou non
+
+        :return: isChoosen
+        :rtype: bool
+        """
         return self.__isChoosen
+    
+    def setIsChoosen(self, isChoosen : bool) -> None:
+        """
+        Setter de isChoosen
+        
+        :param isChoosen: isChoosen
+        :type isChoosen: bool
+        """
+        self.__isChoosen = isChoosen

@@ -1,9 +1,6 @@
 #!/usr/bin/python3
 
 # On importe les librairies nécessaires
-import hmac
-import hashlib
-import time
 import json
 import requests
 from typing import Any

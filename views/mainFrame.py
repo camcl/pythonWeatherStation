@@ -16,11 +16,22 @@ class MainFrame(QMainWindow):
         :version: 0.3
     """
 
+    """
+        Signal de clic sur le widget des villes
+    """
     clickedSig = pyqtSignal(position.Position)
+
+    """
+        Liste des villes (Widget CityList)    
+    """
     __cities = None
 
-    def __init__(self, appName : str = "My Weather App", borderLess : bool = False, width: int = 1000, height: int = 1000):
+    """
+        La ville courante
+    """
+    __currentPosition = None
 
+    def __init__(self, appName : str = "My Weather App", borderLess : bool = False, width: int = 1000, height: int = 1000):
         """
         Constructeur
 
@@ -50,28 +61,27 @@ class MainFrame(QMainWindow):
         self.setGeometry(self.left,self.top,self.width,self.height)
 
     def setCitiesList(self, citiesList : cities) -> None:
+        """
+            Setter de la liste des villes
+
+            :param citiesList: Le widget de liste de villes
+            :type citiesList: cities
+        """
         self.__cities = citiesList
         self.layout().addChildWidget(self.__cities)
         self.__cities.itemClicked.connect(self.clicked)
         self.update()
-        
-    def getCities(self) -> cities:
-        return self.__cities
 
     def clicked(self, item : MyItem) -> None:
         """
         Fonction qui est execute quand on clique sur un item
 
         :param item: L'item clique
-        :type item: QListWidgetItem
+        :type item: MyItem
         """
-        self.__currentPosition = item.getPosition()
-        self.clickedSig.emit(self.__currentPosition)
-    
-    def getCurrentPosition(self) -> position.Position:
-        """
-        Retourne la position courante choisi
-
-        :rtype: position.Position
-        """
-        return self.__currentPosition
+        if(self.__currentPosition != None):
+            self.__currentPosition.setIsChoosen(False)
+        
+        self.__currentPosition = item
+        self.__currentPosition.setIsChoosen(True)
+        self.clickedSig.emit(self.__currentPosition.getPosition())

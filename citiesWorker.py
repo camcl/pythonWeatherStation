@@ -82,4 +82,3 @@ class CitiesWorker(QObject):
                         )
                     self.progress.emit(qitem)
             self.finished.emit()
-        self.finished.emit()

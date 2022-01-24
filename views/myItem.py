@@ -11,7 +11,7 @@ class MyItem(QListWidgetItem):
         :version: 0.3
     """
 
-    def __init__(self, position : position.Position):
+    def __init__(self, position : position.Position, isChoosen : bool) -> None:
         """
             Constructeur
 
@@ -20,6 +20,7 @@ class MyItem(QListWidgetItem):
         """
         super().__init__()
         self.__position = position
+        self.__isChoosen = isChoosen
         self.setText(self.__str__())
 
     def __str__(self) -> str:
@@ -33,3 +34,6 @@ class MyItem(QListWidgetItem):
             :rtype: position.Position
         """
         return self.__position
+    
+    def isChoosen(self) -> bool:
+        return self.__isChoosen

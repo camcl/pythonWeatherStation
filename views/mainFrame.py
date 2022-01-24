@@ -1,3 +1,4 @@
+from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QMainWindow
 
 from views.myItem import MyItem
@@ -14,6 +15,9 @@ class MainFrame(QMainWindow):
         :date: 30 Août 2021
         :version: 0.3
     """
+
+    clickedSig = pyqtSignal(position.Position)
+    __cities = None
 
     def __init__(self, appName : str = "My Weather App", borderLess : bool = False, width: int = 1000, height: int = 1000):
 
@@ -45,17 +49,14 @@ class MainFrame(QMainWindow):
         self.setWindowTitle(self.title)
         self.setGeometry(self.left,self.top,self.width,self.height)
 
-    def printListOfCities(self, citiesFilePath : str = None):
-        """
-        Cette methode affiche la liste des villes disponible dans le fichier que l'on charge
-
-        :param citiesFilePath: Le chemin du fichier a charger
-        :type citiesFilePath: str
-        """
-        if(citiesFilePath != None):
-            citiesList = cities(citiesFilePath) # On charge la liste des villes
-            self.layout().addChildWidget(citiesList)
-            citiesList.itemClicked.connect(self.clicked)
+    def setCitiesList(self, citiesList : cities) -> None:
+        self.__cities = citiesList
+        self.layout().addChildWidget(self.__cities)
+        self.__cities.itemClicked.connect(self.clicked)
+        self.update()
+        
+    def getCities(self) -> cities:
+        return self.__cities
 
     def clicked(self, item : MyItem) -> None:
         """
@@ -65,9 +66,8 @@ class MainFrame(QMainWindow):
         :type item: QListWidgetItem
         """
         self.__currentPosition = item.getPosition()
-        print(self.getCurrentPosition())
+        self.clickedSig.emit(self.__currentPosition)
     
-       
     def getCurrentPosition(self) -> position.Position:
         """
         Retourne la position courante choisi

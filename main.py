@@ -18,6 +18,8 @@ from PyQt5.QtCore import QThread
 
 # Variables globales utilises par tous les threads
 hasToReadWeather = True
+confFileName = "conf/settings.ini"
+envFileName = "conf/.env"
 logger = logging.getLogger("WeatherApp")
 
 def cleanUp():
@@ -25,7 +27,7 @@ def cleanUp():
         Fonction de nettoyage a la mort de l'application
     """
     weatherWorker.setHasToReadWeather(False)
-    with open("settings.ini", encoding="utf8", mode="w") as file:
+    with open(confFileName, encoding="utf8", mode="w") as file:
         configur.write(file)
 
 def loadLogger():
@@ -103,9 +105,9 @@ def newCityChoosen(position : position.Position) -> None:
 
 if __name__=="__main__":
     # Ouverture des informations dans les fichiers .env et .ini
-    load_dotenv('conf/.env')
+    load_dotenv(envFileName)
     configur = ConfigParser()
-    configur.read('conf/settings.ini')
+    configur.read(confFileName)
 
     # Chargement du logger
     loadLogger()

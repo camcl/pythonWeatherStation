@@ -102,6 +102,7 @@ class MainFrame(QMainWindow):
         temp = TempItem()
         self.setTemp(temp)
 
+        # On set la geometrie de la fenetre et l'affiche
         self.setGeometry(self.__x, self.__y, self.__width, self.__height)
         self.show()
 

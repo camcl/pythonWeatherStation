@@ -1,16 +1,12 @@
-import logging
-
 from typing import Any
 from time import sleep
 from PyQt5.QtCore import QObject, pyqtSignal
-from views.mainFrame import MainFrame as App
 
 from classes.httpRequest.dataRequest import dataRequest as request
 from classes.element.position import Position as position
 from classes.element.temperature import Temperature as temp
 from classes.element.wind import Wind as wind
 from classes.element.weather import Weather as weather
-
 
 class WeatherWorker(QObject):
 
@@ -113,5 +109,4 @@ class WeatherWorker(QObject):
                 weatherData = self.__requestWeather(self.__currentPosition)
                 self.progress.emit(weatherData)
             sleep(int(self.__delayTime))
-
         self.finished.emit()

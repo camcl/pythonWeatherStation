@@ -1,6 +1,4 @@
-
-
-from PyQt5.QtWidgets import QListWidget
+from PyQt5.QtWidgets import QListWidget,QWidget
 
 
 class CityList(QListWidget):
@@ -12,7 +10,7 @@ class CityList(QListWidget):
         :version: 0.3
     """
 
-    def __init__(self, x : int = 100, y : int = 100, width : int = 400, height : int = 400) -> None:
+    def __init__(self, parent : QWidget = None, x : int = 100, y : int = 100, width : int = 400, height : int = 400) -> None:
         """
         Constructeur
 
@@ -27,12 +25,10 @@ class CityList(QListWidget):
         :param height: La hauteur de la fenetre
         :type height: int
         """
-        super().__init__()
+        super().__init__(parent)
         self.__xPos = x
         self.__yPos = y
         self.__width = width
         self.__height = height
         self.resize(self.__width, self.__height)
         self.move(self.__xPos, self.__yPos)
-
-    

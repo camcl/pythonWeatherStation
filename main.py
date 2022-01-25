@@ -1,4 +1,3 @@
-from email.encoders import encode_noop
 import os
 import sys
 import logging
@@ -8,27 +7,32 @@ from configparser import ConfigParser
 from classes.element import position
 from classes.element.weather import Weather as weather
 
-from views.mainFrame import MainFrame as App
+from views.MainFrame import MainFrame as App
 from views.myItem import MyItem
 from views.cityList import CityList as cities
 
 from citiesWorker import CitiesWorker
 from weatherWorker import WeatherWorker
 
-from PyQt5.QtWidgets import QApplication, QListWidget
+from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QThread
-
 
 # Variables globales utilises par tous les threads
 hasToReadWeather = True
 logger = logging.getLogger("WeatherApp")
 
 def cleanUp():
+    """
+        Fonction de nettoyage a la mort de l'application
+    """
     weatherWorker.setHasToReadWeather(False)
     with open("settings.ini", encoding="utf8", mode="w") as file:
         configur.write(file)
 
 def loadLogger():
+    """
+        Charge les informations du logger
+    """
     # Creation des informations de logging
     #logging.basicConfig(filename=configur.get('logging', 'filename'), level=configur.getint('logging', 'level'), format='%(asctime)s -- %(name)s -- %(levelname)s -- %(message)s')
 
@@ -54,28 +58,46 @@ def loadLogger():
     logger.addHandler(handler_debug)
 
 def progressWeatherWorker(weather : weather) -> None:
+    """
+        Fonction execute a la reception d'une nouvelle meteo depuis le weatherWorker
+    """
     if weather == None:
         logger.error("No weather provided")
     else:
         logger.debug(weather)
 
 def finishedWeatherWorker() -> None:
+    """
+        Fonction executee a la fin du weatherWorker
+    """
     logger.info("Weather worker has finished")
 
 def progressCitiesWorker(item : MyItem) -> None:
+    """
+        Fonction executee a la reception d'une nouvelle information du cityWorker
+
+        :param item: L'item recu
+        :type item: MyItem
+    """
     if(item != None):
-        citiesList.addItem(item)
+        ex.getMainGrid().getCitiesList().addItem(item)
         if(item.isChoosen()):
-            citiesList.setCurrentItem(item)
+            ex.getMainGrid().getCitiesList().setCurrentItem(item)
             newCityChoosen(item.getPosition())
     else:
         logger.error("Cities can't load properly")
 
 def finishedCitiesWorker() -> None:
+    """
+        Fonction executee a la fin du cityWorker
+    """
     ex.update()
     logger.debug("Cities loading finished")
 
 def newCityChoosen(position : position.Position) -> None:
+    """
+        Fonction executee quand on clic sur une nouvelle ville dans la liste
+    """
     logger.debug("New city choosen : "+str(position))
     configur.set('cities', 'choosen', value=str(position.getId()))
     weatherWorker.setCurrentPosition(position)
@@ -95,11 +117,7 @@ if __name__=="__main__":
 
     # Creation de la fenetre principale
     ex=App()
-    ex.clickedSig.connect(newCityChoosen)
-
-    # On cree une liste vide pour la remplir
-    citiesList = cities()
-    ex.setCitiesList(citiesList)
+    ex.getMainGrid().clickedSig.connect(newCityChoosen)
 
     # Creation du thread de lecture des informations de meteo et demarrage du dit-thread
     t1 = QThread()
@@ -132,6 +150,4 @@ if __name__=="__main__":
     citiesWorker.finished.connect(finishedCitiesWorker) # On connecte notre propre fonction de suivi d'arret du thread
     t2.start() # On demarre le thread
 
-    # Lancement de la boucle principale
-    ex.show()
     sys.exit(app.exec_())

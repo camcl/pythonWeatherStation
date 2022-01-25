@@ -10,8 +10,8 @@ from classes.element.weather import Weather as weather
 from views.MainFrame import MainFrame
 from views.MyItem import MyItem
 
-from citiesWorker import CitiesWorker
-from weatherWorker import WeatherWorker
+from workers.CitiesWorker import CitiesWorker
+from workers.WeatherWorker import WeatherWorker
 
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtCore import QThread

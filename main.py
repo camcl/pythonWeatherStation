@@ -7,7 +7,7 @@ from configparser import ConfigParser
 from classes.element import position
 from classes.element.weather import Weather as weather
 
-from views.MainFrame import MainFrame as App
+from views.MainFrame import MainFrame
 from views.myItem import MyItem
 from views.cityList import CityList as cities
 
@@ -80,9 +80,9 @@ def progressCitiesWorker(item : MyItem) -> None:
         :type item: MyItem
     """
     if(item != None):
-        ex.getMainGrid().getCitiesList().addItem(item)
+        ex.getCitiesList().addItem(item)
         if(item.isChoosen()):
-            ex.getMainGrid().getCitiesList().setCurrentItem(item)
+            ex.getCitiesList().setCurrentItem(item)
             newCityChoosen(item.getPosition())
     else:
         logger.error("Cities can't load properly")
@@ -116,8 +116,8 @@ if __name__=="__main__":
     app.aboutToQuit.connect(cleanUp)
 
     # Creation de la fenetre principale
-    ex=App()
-    ex.getMainGrid().clickedSig.connect(newCityChoosen)
+    ex=MainFrame()
+    ex.clickedSig.connect(newCityChoosen)
 
     # Creation du thread de lecture des informations de meteo et demarrage du dit-thread
     t1 = QThread()

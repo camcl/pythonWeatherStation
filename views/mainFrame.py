@@ -1,35 +1,154 @@
-from PyQt5.QtWidgets import QWidget, QMainWindow
+from PyQt5.QtCore import pyqtSignal, QRect
+from PyQt5.QtWidgets import QMainWindow, QWidget
 
-from views.MainGrid import MainGrid
+from views.myItem import MyItem
+from views.cityList import CityList as cities
+from views.TempItem import TempItem
+
+from classes.element import position
 
 class MainFrame(QMainWindow):
 
     """
-        Grille principale
+        Classe de la fenetre principale
+
+        :author: Delmas Pierre <panda@delmasweb.net>
+        :date: 30 Août 2021
+        :version: 0.3
     """
-    __mainGrid = None
 
-    def __init__(self, parent: QWidget = None, appName : str = "My Weather App", borderLess : bool = False, width: int = 1000, height: int = 1000) -> None:
-        super().__init__(parent)
-        self.__title=appName
-        self.__left=10
-        self.__top=10
-        self.__width=width
-        self.__height=height
-        self.__initUI()
+    """
+        Signal de clic sur le widget des villes
+    """
+    clickedSig = pyqtSignal(position.Position)
 
-    def __initUI(self) -> None:
+    """
+        Liste des villes (Widget CityList)    
+    """
+    __cities = None
+
+    """
+        La ville courante
+    """
+    __currentPosition = None
+
+    """
+        Partie temperature
+    """
+    __temp = None
+
+    """
+        Nombre de lignes
+    """
+    __numberOfRows = 10
+
+    """
+        Nombre de colonnes
+    """
+    __numberOfColumns = 10
+
+    """
+        Position initiale en x de la fenetre
+    """
+    __x = 50
+
+    """
+        Position initiale en y de la fenetre
+    """
+    __y = 50
+
+    """
+        Largeur initiale de la fenetre
+    """
+    __width = 1000
+
+    """
+        Hauteur initiale de la fenetre
+    """
+    __height = 1000
+
+    def __init__(self, parent : QWidget = None, appName : str = "My Weather App", borderLess : bool = False, 
+        x : int = 50, y : int = 50, width: int = 1000, height: int = 1000) -> None:
         """
-            Initialise l'UI
-        """        
-        self.__mainGrid = MainGrid()
-        self.layout().addChildLayout(self.__mainGrid)
-        self.setGeometry(self.__left, self.__top, self.__width, self.__height)
-        self.setWindowTitle(self.__title)
+        Constructeur
+
+        :param appName: Le nom de l'application
+        :type appName: str
+        :param borderLess: Si on veut ou non afficher les bordures
+        :type borderLess: bool
+        :param width: La largeur de la fenetre
+        :type width: int
+        :param height: La hauteur de la fenetre
+        :type height: int
+        """
+        super().__init__(parent)
+        self.__x = x
+        self.__y = y
+        self.__width = width
+        self.__height = height
+        self.__borderLess = borderLess
+        self.__currentPosition = None
+        self.initUI()
+
+    def initUI(self):
+        """
+        Initialise la fenetre et l'affiche
+        """
+        # On cree une liste vide pour la remplir
+        citiesList = cities()
+        self.setCitiesList(citiesList)
+
+        # On cree le widget de la temperature
+        temp = TempItem()
+        self.setTemp(temp)
+
+        self.setGeometry(self.__x, self.__y, self.__width, self.__height)
         self.show()
 
-    def getMainGrid(self) -> MainGrid:
+    def setCitiesList(self, citiesList : cities) -> None:
         """
-            Renvoi la grille principale
+            Setter de la liste des villes
+
+            :param citiesList: Le widget de liste de villes
+            :type citiesList: cities
         """
-        return self.__mainGrid
+        self.__cities = citiesList
+        self.__cities.setGeometry(200,200,400,400)
+        self.layout().addChildWidget(self.__cities)
+        self.__cities.itemClicked.connect(self.clicked)
+
+    def getCitiesList(self) -> cities:
+        """
+            Getter de la liste des villes
+
+            :rtype: cities
+        """
+        return self.__cities
+
+    def setTemp(self, temp : TempItem) -> None:
+        """
+            Setter de l'item de temperature
+        """
+        self.__temp = temp
+        rect = QRect(
+            200,
+            200,
+            500,
+            300
+        )
+        self.__temp.setGeometry(rect)
+        self.layout().addChildLayout(self.__temp)
+
+    def clicked(self, item : MyItem) -> None:
+        """
+        Fonction qui est execute quand on clique sur un item
+
+        :param item: L'item clique
+        :type item: MyItem
+        """
+        if(self.__currentPosition != None):
+            self.__currentPosition.setIsChoosen(False)
+        
+        self.__currentPosition = item
+        self.__currentPosition.setIsChoosen(True)
+        self.clickedSig.emit(self.__currentPosition.getPosition())

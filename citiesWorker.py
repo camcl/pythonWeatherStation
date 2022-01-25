@@ -3,9 +3,7 @@ import json
 from typing import Any
 
 from PyQt5.QtCore import QObject, pyqtSignal
-from PyQt5.QtWidgets import QListWidget
-from views.cityList import CityList as cities
-from views.myItem import MyItem
+from views.MyItem import MyItem
 from classes.element import position
 
 class CitiesWorker(QObject):

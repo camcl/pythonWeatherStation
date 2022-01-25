@@ -8,8 +8,7 @@ from classes.element import position
 from classes.element.weather import Weather as weather
 
 from views.MainFrame import MainFrame
-from views.myItem import MyItem
-from views.cityList import CityList as cities
+from views.MyItem import MyItem
 
 from citiesWorker import CitiesWorker
 from weatherWorker import WeatherWorker

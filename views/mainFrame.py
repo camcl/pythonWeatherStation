@@ -1,8 +1,8 @@
 from PyQt5.QtCore import pyqtSignal, QRect
 from PyQt5.QtWidgets import QMainWindow, QWidget
 
-from views.myItem import MyItem
-from views.cityList import CityList as cities
+from views.MyItem import MyItem
+from views.CityList import CityList
 from views.TempItem import TempItem
 
 from classes.element import position
@@ -95,7 +95,7 @@ class MainFrame(QMainWindow):
         Initialise la fenetre et l'affiche
         """
         # On cree une liste vide pour la remplir
-        citiesList = cities()
+        citiesList = CityList()
         self.setCitiesList(citiesList)
 
         # On cree le widget de la temperature
@@ -106,7 +106,7 @@ class MainFrame(QMainWindow):
         self.setGeometry(self.__x, self.__y, self.__width, self.__height)
         self.show()
 
-    def setCitiesList(self, citiesList : cities) -> None:
+    def setCitiesList(self, citiesList : CityList) -> None:
         """
             Setter de la liste des villes
 
@@ -118,7 +118,7 @@ class MainFrame(QMainWindow):
         self.layout().addChildWidget(self.__cities)
         self.__cities.itemClicked.connect(self.clicked)
 
-    def getCitiesList(self) -> cities:
+    def getCitiesList(self) -> CityList:
         """
             Getter de la liste des villes
 

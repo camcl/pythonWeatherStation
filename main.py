@@ -39,8 +39,8 @@ def loadLogger():
     formatter = logging.Formatter("%(asctime)s -- %(name)s -- %(levelname)s -- %(message)s")
 
     # Les handlers pour les messages critiques et d'infos et de debug
-    handler_critic = logging.FileHandler("critic.log", mode="a", encoding="utf-8")
-    handler_info = logging.FileHandler("info.log", mode="a", encoding="utf-8")
+    handler_critic = logging.FileHandler("logs/critic.log", mode="a", encoding="utf-8")
+    handler_info = logging.FileHandler("logs/info.log", mode="a", encoding="utf-8")
     handler_debug = logging.StreamHandler(sys.stdout)
 
     handler_critic.setFormatter(formatter)
@@ -103,9 +103,9 @@ def newCityChoosen(position : position.Position) -> None:
 
 if __name__=="__main__":
     # Ouverture des informations dans les fichiers .env et .ini
-    load_dotenv()
+    load_dotenv('conf/.env')
     configur = ConfigParser()
-    configur.read('settings.ini')
+    configur.read('conf/settings.ini')
 
     # Chargement du logger
     loadLogger()

@@ -107,6 +107,7 @@ class WeatherWorker(QObject):
         while self.__hasToReadWeather:
             if(self.__currentPosition != None):
                 weatherData = self.__requestWeather(self.__currentPosition)
-                self.progress.emit(weatherData)
+                if(weatherData != None):
+                    self.progress.emit(weatherData)
             sleep(int(self.__delayTime))
         self.finished.emit()

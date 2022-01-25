@@ -132,4 +132,7 @@ dmypy.json
 .vscode
 
 # fichier de configuration
-*.ini
+conf/
+
+# les logs
+logs/

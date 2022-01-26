@@ -1,7 +1,7 @@
 from PyQt5.QtCore import QRect, QPoint
-from PyQt5.QtWidgets import QWidget, QLabel, QGridLayout
+from PyQt5.QtWidgets import QWidget, QLabel, QGridLayout, QPushButton
 
-class TempItem(QGridLayout):
+class TempItem(QWidget):
     """
         QLabel temperature courante
     """
@@ -52,6 +52,11 @@ class TempItem(QGridLayout):
     """
     __numberOfRows = 4
 
+    """
+        Grille courante
+    """
+    __gridLayout = None
+
     def __init__(self, parent: QWidget = None, x : int = 300, y : int = 300, width : int = 350, height : int = 350) -> None:
         """
             Constructeur
@@ -78,10 +83,17 @@ class TempItem(QGridLayout):
         """
             Cree les differents labels
         """
+        self.__gridLayout = QGridLayout(self)
+
         # Le label de la meteo courante
-        self.__labelCurrent = QLabel(None)
+        self.__labelCurrent = QPushButton()
         self.__labelCurrent.setText("TEST")
-        self.addWidget(self.__labelCurrent, 0, 0, self.__numberOfRows, 2)
+        self.__gridLayout.addWidget(self.__labelCurrent, 0, 0, 2, self.__numberOfColumns)
         
         #Le label de la meteo ressentie
+        self.__labelFeels = QPushButton()
+        self.__labelFeels.setText("TEST II")
+        self.__gridLayout.addWidget(self.__labelFeels, 3, 1, 1, 1)
+
+        self.setGeometry(self.__realX, self.__realY, self.__realWidth, self.__realHeight)
         

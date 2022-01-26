@@ -131,14 +131,7 @@ class MainFrame(QMainWindow):
             Setter de l'item de temperature
         """
         self.__temp = temp
-        rect = QRect(
-            200,
-            200,
-            500,
-            300
-        )
-        self.__temp.setGeometry(rect)
-        self.layout().addChildLayout(self.__temp)
+        self.layout().addChildWidget(self.__temp)
 
     def clicked(self, item : MyItem) -> None:
         """

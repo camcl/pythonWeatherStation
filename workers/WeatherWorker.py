@@ -2,108 +2,114 @@ from typing import Any
 from time import sleep
 from PyQt5.QtCore import QObject, pyqtSignal
 
-from classes.httpRequest.dataRequest import dataRequest as request
-from classes.element.position import Position as position
-from classes.element.temperature import Temperature as temp
-from classes.element.wind import Wind as wind
-from classes.element.weather import Weather as weather
+from classes.httpRequest.DataRequest import DataRequest
+from classes.element.Position import Position
+from classes.element.Temperature import Temperature
+from classes.element.Wind import Wind
+from classes.element.Weather import Weather
 
 class WeatherWorker(QObject):
+    """
+        Weather worker
+
+        :author: Delmas Pierre <panda@delmasweb.net>
+        :date: January 15, 2022
+        :version: 1.0
+    """
 
     """
-        Signal de fin du worker
+        Signal to be send when the worker is over
     """
     finished = pyqtSignal()
 
     """
-        Signal de worker en cours
+        Signal to be send while the worker has a new value to send
     """
-    progress = pyqtSignal(weather)
+    progress = pyqtSignal(Weather)
 
     """
-        Cle d'API
+        API Key
     """
     __apiKey = ""
 
     """
-        Position courante
+        Current position
     """
     __currentPosition = None
 
     """
-        Doit-on ou non lire la meteo tel est la question ?
+        To read or not to read weather that is the question ?
     """
     __hasToReadWeather = True
 
     """
-        Delai (en s) de la pause de lecture du worker
+        Sleep time for the weather loop in seconds
     """
     __delayTime = 60
 
-    def __requestWeather(self, pos : position) -> Any:
+    def __requestWeather(self, pos : Position) -> Any:
         """
-            Cette fonction fait la requete API REST a OpenWeatherMap
+            This function make the OpenWeatherAPI request
 
-            :param pos: La position pour laquelle on fait la requete
+            :param pos: The position for which the request is made
             :type pos: position
         """
-        rObject = request(self.__apiKey)
+        rObject = DataRequest(self.__apiKey)
         try:
             result = rObject.makeRequest(uri="https://api.openweathermap.org", url="data/2.5/weather", getParams="id="+str(pos.getId()))
             
-            weatherData = weather(
-                wind=wind(speed=result['wind']['speed'], direction=result['wind']['deg']), 
+            weatherData = Weather(
+                wind=Wind(speed=result['wind']['speed'], direction=result['wind']['deg']), 
                 position=pos, 
-                temperature=temp(current=result['main']['temp'], min=result['main']['temp_min'], max=result['main']['temp_max'], feelsLike=result['main']['feels_like']), 
+                temperature=Temperature(current=result['main']['temp'], min=result['main']['temp_min'], max=result['main']['temp_max'], feelsLike=result['main']['feels_like']), 
                 pressure=result['main']['pressure'], 
                 humidity=result['main']['humidity'])
 
             return weatherData
         except:
-            print("Weather request problem")
+            return None
 
     def setApiKey(self, apiKey : str) -> None:
         """
-            Setter de la cle d'API
+            API Key setter
 
-            :param apiKey: La cle d'API
+            :param apiKey: API Key
             :type apiKey: str
         """
         self.__apiKey = apiKey
 
     def setHasToReadWeather(self, hasToReadWeather : bool) -> None:
         """
-        Setter de hasToReadWeather
+        hasToReadWeather setter
 
-        :param hasToReadWeather: La valeur
+        :param hasToReadWeather: The new value
         :type hasToReadWeather: bool
         """
         self.__hasToReadWeather = hasToReadWeather
     
-    def setCurrentPosition(self, position : position) -> None:
+    def setCurrentPosition(self, position : Position) -> None:
         """
-        Setter de la position courante
+        Current position setter
 
-        :param position: La position courante
-        :type position: position
+        :param position: The new value for the current position
+        :type position: Position
         """
         self.__currentPosition = position
 
     def setDelayTime(self, delayTime : int) -> None:
         """
-            Setter du delai de pause
+            Delay Time setter
 
-            :param delayTime: Le delai (en secondes) de la pause
+            :param delayTime: The new value
             :type delayTime: int
         """
         self.__delayTime = delayTime
 
     def run(self):
         """
-            La fonction principale du worker
+            Worker main loop
         """
-        # On execute cette boucle en permanence. 
-        # Si jamais on demande l'arret alors hasToReadWeather devra passer a false ce qui provoquera une sortie de la boucle
+        # If we ask to stop reading we have to change value of hasToReadWeather to false
         while self.__hasToReadWeather:
             if(self.__currentPosition != None):
                 weatherData = self.__requestWeather(self.__currentPosition)

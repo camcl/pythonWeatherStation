@@ -1,24 +1,24 @@
 class Temperature:
     """
-    Cette classe represente la temperature du lieu. Toutes les informations fournies sont en degres Kelvin
+        This class represents all data on temperature. All values are in Kelvin
 
-    :author: Delmas Pierre <panda@delmasweb.net>
-    :date: 23 Janvier 2022
-    :version: 0.1
+        :author: Delmas Pierre <panda@delmasweb.net>
+        :date: 23 Janvier 2022
+        :version: 1.0
     """
 
     def __init__(self, current : float = -1, min : float = -1, max : float = -1, feelsLike : float = -1) -> None:
         """
-        Constructeur
+            Constructor
 
-        :param current: La temperature courante
-        :type current: float
-        :param min: La temperature minimale
-        :type min: float
-        :param max: La temperature maximale
-        :type max: float
-        :param max: La temperature ressenti
-        :type max: float
+            :param current: Optional; Default : -1; Current temperature
+            :type current: float
+            :param min: Optional; Default : -1; Minimal temperature
+            :type min: float
+            :param max: Optional; Default : -1; Maximal temperature
+            :type max: float
+            :param max: Optional; Default : -1; Feels like temperature
+            :type max: float
         """
         self.setCurrent(current)
         self.setMin(min)
@@ -27,80 +27,80 @@ class Temperature:
 
     def __str__(self) -> str:
         """
-        Retourne la classe sous la forme d'une chaine de caractere
+            Return the class as a string
 
-        :rtype: str
+            :rtype: str
         """
         return "Current : ["+str(self.getCurrent())+"], Min : ["+str(self.getMin())+"], Max : ["+str(self.getMax())+"], Feels like : ["+str(self.getFeelsLike())+"]"
 
     def setCurrent(self, current : float) -> None:
         """
-        Setter de la temperature courante
+            Current temperature setter
 
-        :param current: La temperature courante
-        :type current: float
+            :param current: Current temperature
+            :type current: float
         """
         self.__current = current
     
     def getCurrent(self) -> float:
         """
-        Getter de la temperature courante
+            Current temperature getter
 
-        :return: La temperature courante
-        :rtype: float
+            :return: Current temperature
+            :rtype: float
         """
         return self.__current
 
     def setMin(self, min : float) -> None:
         """
-        Setter de la temperature minimale
+            Minimal temperature setter
 
-        :param min: La temperature minimale
-        :type min: float
+            :param min: Minimal temperature
+            :type min: float
         """
         self.__min = min
     
     def getMin(self) -> float:
         """
-        Getter de la temperature minimale
+            Minimal temperature getter
 
-        :return: La temperature minimale
-        :rtype: float
+            :return: Minimal temperature
+            :rtype: float
         """
         return self.__min
 
     def setMax(self, max : float) -> None:
         """
-        Setter de la temperature maximale
+            Maximal temperature setter
 
-        :param max: La temperature maximale
-        :type max: float
+            :param max: Maximal temperature
+            :type max: float
         """
         self.__max = max
     
     def getMax(self) -> float:
         """
-        Getter de la temperature maximale
+            Maximal temperature getter
 
-        :return: La temperature maximale
-        :rtype: float
+            :return: Maximal temperature
+            :rtype: float
         """
         return self.__max
 
     def setFeelsLike(self, feelsLike : float) -> None:
         """
-        Setter de la temperature ressenti
+            Feels like temperature setter
 
-        :param max: La temperature ressenti
-        :type max: float
+            :param max: Feels like temperature
+            :type max: float
         """
         self.__feelsLike = feelsLike
     
     def getFeelsLike(self) -> float:
         """
-        Getter de la temperature ressenti
+            Feels like temperature getter
 
-        :return: La temperature ressenti
-        :rtype: float
+            :return: Feels like temperature
+            :rtype: float
         """
         return self.__feelsLike

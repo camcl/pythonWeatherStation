@@ -1,23 +1,23 @@
 from PyQt5.QtWidgets import QListWidgetItem
 
-import classes.element.position as position
+from classes.element.Position import Position
 
 class MyItem(QListWidgetItem):
     """
-        Classe qui un element de liste
+        Item of cities list
 
         :author: Delmas Pierre <panda@delmasweb.net>
-        :date: 30 Août 2021
-        :version: 0.3
+        :date: January 15, 2022
+        :version: 1.0
     """
 
-    def __init__(self, position : position.Position, isChoosen : bool) -> None:
+    def __init__(self, position : Position, isChoosen : bool) -> None:
         """
-            Constructeur
+            Constructor
 
             :param position: Position de la ville
-            :type position: position.Position
-            :param isChoosen: Si la position est celle choisie
+            :type position: Position
+            :param isChoosen: If the position is the one currently clicked in the list
             :type isChoosen: bool
         """
         super().__init__()
@@ -26,31 +26,37 @@ class MyItem(QListWidgetItem):
         self.setText(self.__str__())
 
     def __str__(self) -> str:
+        """
+            Return the item in a string
+
+            :return: The item as a string
+            :rtype: str            
+        """
         return self.__position.getName()+", "+self.__position.getCountry()
 
-    def getPosition(self) -> position.Position:
+    def getPosition(self) -> Position:
         """
-            Retourne la position
+            Return the position
 
-            :return: Position
-            :rtype: position.Position
+            :return: position
+            :rtype: Position
         """
         return self.__position
     
     def isChoosen(self) -> bool:
         """
-        Retourne si la ville est choisie ou non
+            Return if the item is the choosen one 
 
-        :return: isChoosen
-        :rtype: bool
+            :return: isChoosen
+            :rtype: bool
         """
         return self.__isChoosen
     
     def setIsChoosen(self, isChoosen : bool) -> None:
         """
-        Setter de isChoosen
-        
-        :param isChoosen: isChoosen
-        :type isChoosen: bool
+            isChoosen setter
+            
+            :param isChoosen: isChoosen
+            :type isChoosen: bool
         """
         self.__isChoosen = isChoosen

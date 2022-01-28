@@ -6,41 +6,39 @@ import requests
 from typing import Any
 
 # On crée la classe de dataRequest
-class dataRequest:
+class DataRequest:
 	"""
-        Classe permettant de faire les requêtes à la base de données
+        This class allows to make request to the API
 
         :author: Delmas Pierre <panda@delmasweb.net>
         :date: 30 Août 2021
-        :version: 0.3
+        :version: 1.0
     """
 
 	def __init__(self, apiKey : str) -> None:
 		"""
-			Constructeur
+			Constructor
 
-			:param apiKey: La clé de l'API à laquelle on se connecte
+			:param apiKey: API Key
 			:type apiKey: str
-			:rtype: None
 		"""
 		self.__setApiKey(apiKey)
 	
 	def __setApiKey(self, apiKey : str) -> None:
 		"""
-			Mutateur de la clé d'API
+			API Key setter
 
-			:param apiKey: La clé d'API
+			:param apiKey: API Key
 			:type apiKey: str
-			:rtype: None
 			:meta private:
 		"""
 		self.__apiKey = apiKey
 	
 	def __getApiKey(self) -> str:
 		"""
-			Accesseur de la clé d'API
+			API Key getter
 
-			:returns: La clé d'API
+			:returns: API's key
 			:rtype: str
 			:meta private:
 		"""
@@ -48,19 +46,19 @@ class dataRequest:
 
 	def __makeRequest(self, uri : str, url : str, getParams : str, payload : str, methodHTTP : str) -> Any:
 		"""
-			Cette méthode fait les appels HTTP REST API
+			This method do the HTTP REST API calls
 
-			:param uri: L'URI du site où l'on souhaite faire la requete
+			:param uri: Website URI
 			:type uri: str
-			:param url: Le chemin d'accès sur le serveur
+			:param url: Access route on the server
 			:type url: str
-			:param getParams: Les paramètres que l'on passe dans l'URL après le ?
+			:param getParams: GET parameters
 			:type getParams: str
-			:param payload: Un objet au format JSON serialisé en chaîne de caractère (voir json.dumps)
+			:param payload: A JSON serialized object (see json.dumps)
 			:type payload: str
-			:param methodHTTP: La méthode HTTP d'appel (i.E GET, POST)
+			:param methodHTTP: HTTP Method (i.e GET or POST)
 			:type methodHTTP: str
-			:raise Exception: Une exception est levée si jamais la réponse à la requete est >=400
+			:raise Exception: An exception if the result of the request is >= 400
 			:meta private:
 		"""
 		url = uri+"/"+url+"?"+getParams+"&appid="+self.__getApiKey()
@@ -80,9 +78,9 @@ class dataRequest:
 	
 	def __createConnectionPayload(self, params : dict) -> str:
 		"""
-			Cette méthode créé la charge utile pour l'envoi de requête sous le format d'un objet JSON sérialisé
+			This method creates the payload from a given dictionnary if needed
 
-			:param params: Un dictionnaire qui sera transformé au format JSON
+			:param params: The dictionnary that will be transformed in JSON result
 			:type params: dict
 			:meta private:
 		"""
@@ -92,20 +90,20 @@ class dataRequest:
 
 	def makeRequest(self, uri : str, url : str, getParams : str="", params : dict={}, methodHTTP : str="GET") -> Any:
 		"""
-			Cette méthode est la méthode public pour faire les appels à l'API
+			This request is the exposed part to make the request
 
-			:param uri: L'URI de l'API
+			:param uri: API's URI
 			:type uri: str
-			:param url: La partie qui identifie sur le site désignée par l'URI
+			:param url: API's route
 			:type url: str
-			:param getParams: Optional; Default : ""; Les paramètres a fournir pour les requetes derriere le ?
+			:param getParams: Optional; Default : ""; The GET parameters if needed
 			:type getParams: str
-			:param params: Optional; Default: {}; Le JSON a envoyé
+			:param params: Optional; Default: {}; A payload in a dictionnary format
 			:type params: dict
-			:param methodHTTP: Optional; Default : GET; Défini la méthode d'appel HTTP (i.e GET, POST)
+			:param methodHTTP: Optional; Default : GET; The HTTP method (i.e GET or POST)
 			:type methodHTTP: str
-			:returns: Le résultat de la requête au format JSON
-			:raise: L'Exception produite en cas d'echec de connexion
+			:returns: The request result as a dictionnary
+			:raise: An exception in case of failure
 			:rtype: Any
 			:meta public:
 		"""

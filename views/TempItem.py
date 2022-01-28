@@ -1,59 +1,66 @@
-from PyQt5.QtCore import QRect, QPoint
-from PyQt5.QtWidgets import QWidget, QLabel, QGridLayout, QPushButton
+from PyQt5.QtWidgets import QWidget, QLabel, QGridLayout, QPushButton, QSizePolicy
 
 class TempItem(QWidget):
     """
-        QLabel temperature courante
+        Temperature part manager
+
+        :author: Delmas Pierre <panda@delmasweb.net>
+        :date: January 15, 2022
+        :version: 1.0
+    """
+
+    """
+        QLabel to print the current temperature
     """
     __labelCurrent = None
 
     """
-        QLabel temperature ressentie
+        QLabel to print the feels like temperature
     """
     __labelFeels = None
 
     """
-        QLabel temperature max
+        QLabel to print the maximal temperature
     """
     __labelMax = None
 
     """
-        QLabel temperature min
+        QLabel to print the minimal temperature
     """
     __labelMin = None
 
     """
-        Position en X
+        X Position of the widget
     """
     __realX = 300
 
     """
-        Position en Y
+        Y Position of the widget
     """
     __realY = 300
 
     """
-        Largeur reelle
+        Width of the widget
     """
     __realWidth = 350
 
     """
-        Hauteur reelle
+        Height of the widget
     """
     __realHeight = 350
 
     """
-        Nombre de colonnes
+        Number of columns in the grid of the widget
     """
     __numberOfColumns = 5
 
     """
-        Nombre de lignes
+        Number of rows in the grid of the widget
     """
     __numberOfRows = 4
 
     """
-        Grille courante
+        The internal grid
     """
     __gridLayout = None
 
@@ -61,15 +68,15 @@ class TempItem(QWidget):
         """
             Constructeur
 
-            :param parent: Parent
+            :param parent: Optional; Default : None; Parent
             :type parent: QWidget
-            :param x: La position du coin en haut a gauche en x
+            :param x: Optional; Default : 300; X Position
             :type x: int
-            :param y: La position du coin en haut a gauche en y
+            :param y: Optional; Default : 300; Y Position
             :type y: int
-            :param width: La largeur de la fenetre
+            :param width: Optional; Default : 350; Widget's width
             :type width: int
-            :param height: La hauteur de la fenetre
+            :param height: Optional; Default : 350; Height's height
             :type height: int
         """
         super().__init__(parent)
@@ -77,23 +84,41 @@ class TempItem(QWidget):
         self.__realY = y
         self.__realWidth = width
         self.__realHeight = height
-        self.initUI()
+        self.initWidget()
 
-    def initUI(self):
+    def initWidget(self):
         """
-            Cree les differents labels
+            Create the labels
         """
         self.__gridLayout = QGridLayout(self)
 
         # Le label de la meteo courante
-        self.__labelCurrent = QPushButton()
+        self.__labelCurrent = QLabel()
+        self.__labelCurrent.setStyleSheet("QLabel { background-color : red; }")
         self.__labelCurrent.setText("TEST")
+        self.__labelCurrent.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__gridLayout.addWidget(self.__labelCurrent, 0, 0, 2, self.__numberOfColumns)
         
         #Le label de la meteo ressentie
-        self.__labelFeels = QPushButton()
+        self.__labelFeels = QLabel()
+        self.__labelFeels.setStyleSheet("QLabel { background-color : yellow; }")
         self.__labelFeels.setText("TEST II")
-        self.__gridLayout.addWidget(self.__labelFeels, 3, 1, 1, 1)
+        self.__labelFeels.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
+        self.__gridLayout.addWidget(self.__labelFeels, 2, 1, 1, 1)
+
+        #Le label de la meteo minimale
+        self.__labelMin = QLabel()
+        self.__labelMin.setStyleSheet("QLabel { background-color : purple; }")
+        self.__labelMin.setText("TEST III")
+        self.__labelMin.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
+        self.__gridLayout.addWidget(self.__labelMin, 2, 2, 1, 1)
+
+        #Le label de la meteo ressentie
+        self.__labelMax = QLabel()
+        self.__labelMax.setStyleSheet("QLabel { background-color : orange; }")
+        self.__labelMax.setText("TEST III")
+        self.__labelMax.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
+        self.__gridLayout.addWidget(self.__labelMax, 2, 3, 1, 1)
 
         self.setGeometry(self.__realX, self.__realY, self.__realWidth, self.__realHeight)
         

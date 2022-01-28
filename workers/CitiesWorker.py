@@ -1,57 +1,62 @@
 import json
 
-from typing import Any
-
 from PyQt5.QtCore import QObject, pyqtSignal
 from views.MyItem import MyItem
-from classes.element import position
+from classes.element.Position import Position
 
 class CitiesWorker(QObject):
+    """
+        Cities list worker
+
+        :author: Delmas Pierre <panda@delmasweb.net>
+        :date: January 15, 2022
+        :version: 1.0
+    """
 
     """
-        Signal de fin du worker 
+        Signal to be sent if the worker is over 
     """
     finished = pyqtSignal()
     
     """
-        Signal du worker en cours de travail
+        Signal to be sent while the worker is in progress
     """
     progress = pyqtSignal(MyItem)
 
     """
-        Nom du fichier
+        Cities file name
     """
     __citiesFileName = None
 
     """
-        Ville choisie
+        Choosen city id. To be used with the value of the settings file
     """
     __choosenCity = -1
 
     def setCitiesFileName(self, citiesFileName : str) -> None:
         """
-        Setter du nom du fichier des villes
+            Cities file name setter
 
-        :param citiesFileName: Le nom du fichier 
-        :type citiesFileName: str
+            :param citiesFileName: Path of the file 
+            :type citiesFileName: str
         """
         self.__citiesFileName = citiesFileName
 
     def setChoosenCity(self, choosenCity : int) -> None:
         """
-        Setter de l'identifiant de la ville choisi préalablement choisie
+            Choosen city identifier
 
-        :param choosenCity: L'identifiant de la ville
-        :type choosenCity: int
+            :param choosenCity: City identifier
+            :type choosenCity: int
         """
         self.__choosenCity = choosenCity
     
-    def loadNewCitiesList(self) -> Any:
+    def loadNewCitiesList(self) -> dict:
         """
-        Ouvre une liste de ville au format JSON formate OpenWeatherMap
+            Function that opens the file from a JSON and return it as a dictionnary
 
-        :return: La liste des villes
-        :rtype: Any
+            :return: The cities list 
+            :rtype: dict
         """
         citiesList = {}
         if(self.__citiesFileName != None):
@@ -63,14 +68,14 @@ class CitiesWorker(QObject):
 
     def run(self):
         """
-        Fonction principale du thread qui sera executee
+            Main loop of the worker
         """
         if(self.__citiesFileName != None):
             citiesList = self.loadNewCitiesList()
             for data in citiesList:
                 if(data['country'] == "FR"):
                     qitem = MyItem(
-                        position.Position(
+                        Position(
                             name=data['name'], 
                             country=data['country'], 
                             id=data['id'], 

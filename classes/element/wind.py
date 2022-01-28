@@ -1,62 +1,64 @@
 class Wind:
     """
-        Classe permettant de symboliser le vent
+        This represent a wind (direction and speed)
 
         :author: Delmas Pierre <panda@delmasweb.net>
         :date: 23 Janvier 2022
-        :version: 0.1
+        :version: 1.0
     """
 
     def __init__(self, speed : int = 0, direction : int = 0) -> None:
         """
-        :param speed: La vitesse du vent
-        :type speed: int
-        :param direction: La direction du vent par rapport au nord
-        :type direction: int
+            Constructor
+        
+            :param speed: Optional; Default : 0; Wind's speed
+            :type speed: int
+            :param direction: Optional; Default : 0; Wind's direction in degrees relative to North (0 : North, 90 : East, 180 : South, 270 : West)
+            :type direction: int
         """
         self.setSpeed(speed)
         self.setDirection(direction)
     
     def __str__(self) -> str:
         """
-        Retourne la classe sous la forme d'une chaine de caractere
+            Return the class as a string
 
-        :rtype: str
+            :rtype: str
         """
         return "Speed : ["+str(self.getSpeed())+"], Direction : ["+str(self.getDirection())+"]"
 
     def setSpeed(self, speed : int) -> None:
         """
-        Setter de la vitesse du vent
+            Wind's speed setter
 
-        :param speed: La vitesse du vent
-        :type speed: int
+            :param speed: Wind's speed
+            :type speed: int
         """
         self.__speed = speed
 
     def setDirection(self, direction : int) -> None:
         """
-        Setter de la direction du vent
+            Wind's direction setter
 
-        :param direction: La direction du vent par rapport au nord
-        :type direction: int
+            :param direction: Wind's direction
+            :type direction: int
         """
         self.__direction = direction
 
     def getSpeed(self) -> int:
         """
-        Retourne la vitesse du vent
+            Wind's speed getter
 
-        :return: La vitesse du vent
-        :rtype: int
+            :return: Wind's speed
+            :rtype: int
         """
         return self.__speed
 
     def getDirection(self) -> int:
         """
-        Retourne la direction du vent
+            Wind's direction getter
 
-        :return: La direction du vent
-        :rtype: int
+            :return: Wind's direction
+            :rtype: int
         """
         return self.__direction

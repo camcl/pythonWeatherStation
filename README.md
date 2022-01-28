@@ -19,14 +19,19 @@ The first one has to be called settings.ini and contains the following to start
 
 ```
 [logging]
-filename = weather.log
-level = 10
+standard = ./logs/weather.log
+critical = ./logs/critical.log
+level = 20
 
 [cities]
-filename = resources/city.list.json
+filename = ./resources/city.list.json
 
 [weather]
 delay = 1
+
+[language]
+folder = ./resources/translation
+locale = en
 ```
 
 You can modify the logging level with :

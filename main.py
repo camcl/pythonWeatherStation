@@ -1,6 +1,7 @@
 import os
 import sys
 import logging
+import i18n
 
 from dotenv import load_dotenv
 from configparser import ConfigParser
@@ -38,8 +39,8 @@ def loadLogger():
     formatter = logging.Formatter("%(asctime)s -- %(name)s -- %(levelname)s -- %(message)s")
 
     # Handler for messages (critical and errors in one file, info in another and eventually debug in the stdout)
-    handler_critic = logging.FileHandler("logs/critic.log", mode="a", encoding="utf-8")
-    handler_info = logging.FileHandler("logs/info.log", mode="a", encoding="utf-8")
+    handler_critic = logging.FileHandler(configur.get('logging', 'critical'), mode="a", encoding="utf-8")
+    handler_info = logging.FileHandler(configur.get('logging', 'standard'), mode="a", encoding="utf-8")
     handler_debug = logging.StreamHandler(sys.stdout)
 
     # Setting the format for every handler
@@ -68,6 +69,7 @@ def progressWeatherWorker(weather : Weather) -> None:
     if weather == None:
         logger.error("No weather provided")
     else:
+        ex.getTemp().setCurrentTempText(weather.getTemperature().getCurrent(), i18n.t('translate.temperature.kelvin'))
         logger.debug(weather)
 
 def finishedWeatherWorker() -> None:
@@ -106,9 +108,23 @@ def newCityChoosen(position : Position.Position) -> None:
     configur.set('cities', 'choosen', value=str(position.getId()))
     weatherWorker.setCurrentPosition(position)
 
+def i18nLoading(translationPath : str, locale : str) -> None:
+    """
+        This function loads the translation file
+
+        :param translationPath: The folder path
+        :type translationPath: str
+        :param locale: The locale to load
+        :type locale: str
+    """    
+    i18n.load_path.append(translationPath)
+    i18n.set('locale', locale)
+    i18n.set('fallback', 'en')
+
+
 if __name__=="__main__":
 
-    # TODO Add options command lines with getopt. For example settings file path or .env file path or logger file path
+    # TODO Add options command lines with getopt. For example settings file path or .env file path
 
     # Opening informations in .env and .ini files
     load_dotenv(envFileName)
@@ -117,6 +133,9 @@ if __name__=="__main__":
 
     # Logger loading
     loadLogger()
+
+    # Loading the translations
+    i18nLoading(configur.get('language', 'folder'), configur.get('language', 'locale'))
 
     # Application starting and cleanup adding
     app=QApplication(sys.argv)

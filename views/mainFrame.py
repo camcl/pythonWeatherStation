@@ -7,6 +7,8 @@ from views.TempItem import TempItem
 
 from classes.element.Position import Position
 
+import i18n
+
 class MainFrame(QMainWindow):
 
     """
@@ -91,11 +93,11 @@ class MainFrame(QMainWindow):
             Window initialisation (widgets creation) and positionning
         """
         # On cree une liste vide pour la remplir
-        citiesList = CityList(x=100,y=100,width=300,height=300)
+        citiesList = CityList(x=self.__width * 0.1, y=self.__height * 0.1, width= self.__width * 0.3, height=self.__height * 0.6)
         self.setCitiesList(citiesList)
 
         # On cree le widget de la temperature
-        temp = TempItem(x=450,y=150,width=200,height=200)
+        temp = TempItem(x=self.__width * 0.4, y=self.__height * 0.1, width=self.__width * 0.25, height= self.__height * 0.3)
         self.setTemp(temp)
 
         # On set la geometrie de la fenetre et l'affiche
@@ -125,9 +127,21 @@ class MainFrame(QMainWindow):
     def setTemp(self, temp : TempItem) -> None:
         """
             Temperature widget setter
+
+            :param temp: The temperature item
+            :type temp: TempItem
         """
         self.__temp = temp
         self.layout().addChildWidget(self.__temp)
+
+    def getTemp(self) -> TempItem:
+        """
+            Temperature widget getter
+
+            :return: The temperature widget
+            :rtype: TempItem
+        """
+        return self.__temp
 
     def clicked(self, item : MyItem) -> None:
         """

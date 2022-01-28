@@ -1,0 +1,7 @@
+en:
+    hello_world : "Hello world"
+    temperature:
+        current: "Current temperature : \n%{value}%{unit}"
+        celsius: "°C"
+        farneiheit: "°F"
+        kelvin: "K"

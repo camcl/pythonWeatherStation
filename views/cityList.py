@@ -12,7 +12,7 @@ class CityList(QListWidget):
 
     def __init__(self, parent : QWidget = None, x : int = 100, y : int = 100, width : int = 400, height : int = 400) -> None:
         """
-            Constructeur
+            Constructor
 
 
             :param parent: Optional; Default : None; The parent of the widget

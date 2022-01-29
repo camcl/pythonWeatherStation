@@ -59,11 +59,6 @@ class TempItem(QWidget):
     __numberOfColumns = 5
 
     """
-        Number of rows in the grid of the widget
-    """
-    __numberOfRows = 4
-
-    """
         The internal grid
     """
     __gridLayout = None
@@ -145,4 +140,37 @@ class TempItem(QWidget):
             :type unit: str
         """
         self.__labelCurrent.setText(i18n.t('translate.temperature.current', value=temp, unit=unit))
+    
+    def setFeelsLikeTempText(self, temp : float, unit : str) -> None:
+        """
+            This function set the text for the current label
+
+            :param temp: The temperature to print
+            :type temp: float
+            :param unit: The unit of the value
+            :type unit: str
+        """
+        self.__labelFeels.setText(i18n.t('translate.temperature.feelslike', value=temp, unit=unit))
+
+    def setMaxTempText(self, temp : float, unit : str) -> None:
+        """
+            This function set the text for the current label
+
+            :param temp: The temperature to print
+            :type temp: float
+            :param unit: The unit of the value
+            :type unit: str
+        """
+        self.__labelMax.setText(i18n.t('translate.temperature.max', value=temp, unit=unit))
+
+    def setMinTempText(self, temp : float, unit : str) -> None:
+        """
+            This function set the text for the current label
+
+            :param temp: The temperature to print
+            :type temp: float
+            :param unit: The unit of the value
+            :type unit: str
+        """
+        self.__labelMin.setText(i18n.t('translate.temperature.min', value=temp, unit=unit).format("%.06f"))
         

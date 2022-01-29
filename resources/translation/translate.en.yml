@@ -2,6 +2,9 @@ en:
     hello_world : "Hello world"
     temperature:
         current: "Current temperature : \n%{value}%{unit}"
+        feelslike: "Feels like : \n%{value}%{unit}"
+        max: "Maximal : \n%{value}%{unit}"
+        min: "Minimal : \n%{value}%{unit}"
         celsius: "°C"
-        farneiheit: "°F"
+        fahrenheit: "°F"
         kelvin: "K"

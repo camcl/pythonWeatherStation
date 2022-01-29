@@ -6,6 +6,7 @@ import i18n
 from dotenv import load_dotenv
 from configparser import ConfigParser
 from classes.element import Position
+from classes.element.Temperature import Temperature
 from classes.element.Weather import Weather
 
 from views.MainFrame import MainFrame
@@ -69,7 +70,34 @@ def progressWeatherWorker(weather : Weather) -> None:
     if weather == None:
         logger.error("No weather provided")
     else:
-        ex.getTemp().setCurrentTempText(weather.getTemperature().getCurrent(), i18n.t('translate.temperature.kelvin'))
+        # Default to Kelvin
+        current = weather.getTemperature().getCurrent()
+        feelsLike = weather.getTemperature().getFeelsLike()
+        minT = weather.getTemperature().getMin()
+        maxT = weather.getTemperature().getMax()
+        unit = i18n.t('translate.temperature.kelvin')
+        logger.debug(configur.get('weather', 'tempUnit'))
+        # If configuration ask for celsius or fahrenheit
+        if(configur.get('weather', 'tempUnit') == "c"):
+            current = Temperature.fromKelvinToCelsius(current)
+            feelsLike = Temperature.fromKelvinToCelsius(feelsLike)
+            minT = Temperature.fromKelvinToCelsius(minT)
+            maxT = Temperature.fromKelvinToCelsius(maxT)
+            unit = i18n.t('translate.temperature.celsius')
+        elif(configur.get('weather', 'tempUnit') == "f"):
+            current = Temperature.fromKelvinToFahrenheit(current)
+            feelsLike = Temperature.fromKelvinToFahrenheit(feelsLike)
+            minT = Temperature.fromKelvinToFahrenheit(minT)
+            maxT = Temperature.fromKelvinToFahrenheit(maxT)
+            unit = i18n.t('translate.temperature.fahrenheit')
+        
+        # Set the temperatures text
+        ex.getTemp().setCurrentTempText(current, unit)
+        ex.getTemp().setFeelsLikeTempText(feelsLike, unit)
+        ex.getTemp().setMinTempText(minT, unit)
+        ex.getTemp().setMaxTempText(maxT, unit)
+
+        # Print the weather to debug for information
         logger.debug(weather)
 
 def finishedWeatherWorker() -> None:

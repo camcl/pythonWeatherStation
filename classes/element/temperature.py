@@ -104,3 +104,75 @@ class Temperature:
             :rtype: float
         """
         return self.__feelsLike
+
+    def fromKelvinToCelsius(value : float) -> float:
+        """
+            This function convert a temperature from Kelvin to celsius
+
+            :param value: The value to convert
+            :type value: float
+            :return: The converted value
+            :rtype: float
+            :meta static:
+        """
+        return value-273.15
+
+    def fromCelsiusToKelvin(value : float) -> float:
+        """
+            This function convert a temperature from Celsius to Kelvin
+
+            :param value: The value to convert
+            :type value: float
+            :return: The converted value
+            :rtype: float
+            :meta static:
+        """
+        return value + 273.15
+
+    def fromCelsiusToFahrenheit(value : float) -> float:
+        """
+            This function convert a temperature from Celsius to Fahrenheit
+
+            :param value: The value to convert
+            :type value: float
+            :return: The converted value
+            :rtype: float
+            :meta static:
+        """
+        return value * 1.8 + 32
+
+    def fromFahrenheitToCelsius(value : float) -> float:
+        """
+            This function convert a temperature from Fahrenheit to Celsius
+
+            :param value: The value to convert
+            :type value: float
+            :return: The converted value
+            :rtype: float
+            :meta static:
+        """
+        return (value - 32)/1.8
+
+    def fromFahrenheitToKelvin(value : float) -> float:
+        """
+            This function convert a temperature from Fahrenheit to Kelvin
+
+            :param value: The value to convert
+            :type value: float
+            :return: The converted value
+            :rtype: float
+            :meta static:
+        """
+        return Temperature.fromCelsiusToKelvin(Temperature.fromFahrenheitToCelsius(value))
+
+    def fromKelvinToFahrenheit(value : float) -> float:
+        """
+            This function convert a temperature from Kelvin to Fahrenheit
+
+            :param value: The value to convert
+            :type value: float
+            :return: The converted value
+            :rtype: float
+            :meta static:
+        """
+        return Temperature.fromCelsiusToFahrenheit(Temperature.fromKelvinToCelsius(value))

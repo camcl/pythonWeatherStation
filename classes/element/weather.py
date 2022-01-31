@@ -6,11 +6,11 @@ class Weather:
     """
         This class represents a weather (wind, position, temperature, pressure, ...)
 
-        :author: Delmas Pierre <panda@delmasweb.net>
+        :author: Panda <panda@delmasweb.net>
         :date: 23 Janvier 2022
         :version: 1.0
     """
-    def __init__(self, wind : Wind = None, position : Position = None, temperature : Temperature = None, pressure : int = -1, humidity : int = -1) -> None:
+    def __init__(self, wind : Wind = None, position : Position = None, temperature : Temperature = None) -> None:
 
         """
             Constructor
@@ -21,16 +21,10 @@ class Weather:
             :type position: Position
             :param temperature: Optional; Default : None; Place's temperature
             :type temperature: Temperature
-            :param pressure: Optional; Default : -1; Place's pressure
-            :type pressure: int
-            :param humidity: Optional; Default : -1; Place's Humidity
-            :type humidity: int
         """
         self.setWind(wind)
         self.setPosition(position)
         self.setTemperature(temperature)
-        self.setPressure(pressure)
-        self.setHumidity(humidity)
     
     def __str__(self) -> str:
         """
@@ -93,41 +87,3 @@ class Weather:
             :rtype: Temperature
         """
         return self.__temperature
-    
-    def setPressure(self, pressure : int) -> None:
-        """
-            Pression setter
-
-            :param pressure: Place's pressure
-            :type pressure: int
-        """
-        self.__pressure = pressure
-
-    def getPressure(self) -> int:
-        """
-            Pression getter
-
-            :return: Place's pression
-            :rtype: int
-        """
-        return self.__pressure
-
-    def setHumidity(self, humidity : int) -> None:
-        """
-            Humidity's getter
-
-            :param pressure: Place's humidity
-            :type pressure: int
-        """
-        self.__humidity = humidity
-
-    def getHumidity(self) -> int:
-        """
-            Humidity's getter
-
-            :return: Place's humidity
-            :rtype: int
-        """
-        return self.__humidity
-
-    

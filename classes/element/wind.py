@@ -2,7 +2,7 @@ class Wind:
     """
         This represent a wind (direction and speed)
 
-        :author: Delmas Pierre <panda@delmasweb.net>
+        :author: Panda <panda@delmasweb.net>
         :date: 23 Janvier 2022
         :version: 1.0
     """

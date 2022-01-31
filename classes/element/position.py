@@ -2,7 +2,7 @@ class Position:
     """
         This class represents a geographical position
 
-        :author: Delmas Pierre <panda@delmasweb.net>
+        :author: Panda <panda@delmasweb.net>
         :date: January 15, 2022
         :version: 1.0
     """

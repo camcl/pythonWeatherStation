@@ -6,7 +6,7 @@ class MyItem(QListWidgetItem):
     """
         Item of cities list
 
-        :author: Delmas Pierre <panda@delmasweb.net>
+        :author: Panda <panda@delmasweb.net>
         :date: January 15, 2022
         :version: 1.0
     """

@@ -8,7 +8,7 @@ class TempItem(QWidget):
     """
         Temperature part manager
 
-        :author: Delmas Pierre <panda@delmasweb.net>
+        :author: Panda <panda@delmasweb.net>
         :date: January 15, 2022
         :version: 1.0
     """

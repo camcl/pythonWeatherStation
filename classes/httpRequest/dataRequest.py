@@ -10,7 +10,7 @@ class DataRequest:
 	"""
         This class allows to make request to the API
 
-        :author: Delmas Pierre <panda@delmasweb.net>
+        :author: Panda <panda@delmasweb.net>
         :date: 30 Août 2021
         :version: 1.0
     """

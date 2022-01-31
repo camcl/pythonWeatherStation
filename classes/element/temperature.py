@@ -2,7 +2,7 @@ class Temperature:
     """
         This class represents all data on temperature. All values are in Kelvin
 
-        :author: Delmas Pierre <panda@delmasweb.net>
+        :author: Panda <panda@delmasweb.net>
         :date: 23 Janvier 2022
         :version: 1.0
     """

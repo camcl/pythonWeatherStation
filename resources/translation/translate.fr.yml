@@ -8,3 +8,5 @@ fr:
     celsius: "°C"
     fahrenheit: "°F"
     kelvin: "K"
+  pression: ""
+  humidity: ""

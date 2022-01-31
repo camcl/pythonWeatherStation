@@ -3,6 +3,7 @@ from PyQt5.QtWidgets import QMainWindow, QWidget
 
 from views.MyItem import MyItem
 from views.CityList import CityList
+from views.SunSetSunRise import SunsetSunrise
 from views.TempItem import TempItem
 
 from classes.element.Position import Position
@@ -23,41 +24,6 @@ class MainFrame(QMainWindow):
         Clicking signal on the cities list
     """
     clickedSig = pyqtSignal(Position)
-
-    """
-        Cities List Widget   
-    """
-    __cities = None
-
-    """
-        Current position to be monitored
-    """
-    __currentPosition = None
-
-    """
-        Temperature widget
-    """
-    __temp = None
-
-    """
-        Inital position of the window in x
-    """
-    __x = 50
-
-    """
-        Initial position of the window in y
-    """
-    __y = 50
-
-    """
-        initial width of the window
-    """
-    __width = 1000
-
-    """
-        Initial height of the window
-    """
-    __height = 1000
 
     def __init__(self, parent : QWidget = None, appName : str = "My Weather App", borderLess : bool = False, 
         x : int = 50, y : int = 50, width: int = 1000, height: int = 1000) -> None:
@@ -92,15 +58,19 @@ class MainFrame(QMainWindow):
         """
             Window initialisation (widgets creation) and positionning
         """
-        # On cree une liste vide pour la remplir
+        # Creating an empty list for cities
         citiesList = CityList(x=self.__width * 0.1, y=self.__height * 0.1, width= self.__width * 0.3, height=self.__height * 0.6)
         self.setCitiesList(citiesList)
 
-        # On cree le widget de la temperature
+        # Creating the temperature widget 
         temp = TempItem(x=self.__width * 0.4, y=self.__height * 0.1, width=self.__width * 0.25, height= self.__height * 0.3)
         self.setTemp(temp)
 
-        # On set la geometrie de la fenetre et l'affiche
+        # Creating the sunset/sunrise widget
+        sunHours = SunsetSunrise(x=self.__width * 0.7, y=self.__height * 0.1, width=self.__width * 0.25, height=self.__height * 0.3)
+        self.setSunHours(sunHours)
+
+        # Setting the size of the window
         self.setFixedSize(self.__width, self.__height)
         self.move(self.__x, self.__y)
         self.show()
@@ -142,6 +112,25 @@ class MainFrame(QMainWindow):
             :rtype: TempItem
         """
         return self.__temp
+
+    def setSunHours(self, sunHours : SunsetSunrise) -> None:
+        """
+            Sunhours widget setter
+
+            :param sunHours: The widget of sun hours
+            :type sunHours: SunsetSunrise
+        """
+        self.__sunHours = sunHours
+        self.layout().addChildWidget(self.__sunHours)
+
+    def getSunHours(self) -> SunsetSunrise:
+        """
+            Sunhours widget getter
+
+            :return: The widget of sun hours
+            :rtype: SunsetSunrise
+        """
+        return self.__sunHours
 
     def clicked(self, item : MyItem) -> None:
         """

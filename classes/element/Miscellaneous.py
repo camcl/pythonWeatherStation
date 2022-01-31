@@ -24,7 +24,15 @@ class Miscellaneaous:
         self.setHumidity(humidity)
         self.setSunset(sunset)
         self.setSunrise(sunrise)
-        
+
+    def __str__(self) -> str:
+        """
+            Return the class as a string
+
+            :rtype: str
+        """
+        return "Pressure : ["+str(self.getPressure())+"], Humidity : ["+str(self.getHumidity())+"], Sunrise : ["+str(self.getSunrise())+"], Sunset : ["+str(self.getSunset())+"]"
+
     def setPressure(self, pressure : int) -> None:
         """
             Pression setter

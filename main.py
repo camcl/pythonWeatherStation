@@ -76,7 +76,7 @@ def progressWeatherWorker(weather : Weather) -> None:
         minT = weather.getTemperature().getMin()
         maxT = weather.getTemperature().getMax()
         unit = i18n.t('translate.temperature.kelvin')
-        logger.debug(configur.get('weather', 'tempUnit'))
+
         # If configuration ask for celsius or fahrenheit
         if(configur.get('weather', 'tempUnit') == "c"):
             current = Temperature.fromKelvinToCelsius(current)
@@ -96,6 +96,10 @@ def progressWeatherWorker(weather : Weather) -> None:
         ex.getTemp().setFeelsLikeTempText(feelsLike, unit)
         ex.getTemp().setMinTempText(minT, unit)
         ex.getTemp().setMaxTempText(maxT, unit)
+
+        # Set the sunrise/sunset values
+        ex.getSunHours().setSunriseValue(weather.getMisc().getSunrise(), configur.get('time','timezone'))
+        ex.getSunHours().setSunsetValue(weather.getMisc().getSunset(), configur.get('time','timezone'))
 
         # Print the weather to debug for information
         logger.debug(weather)
@@ -148,7 +152,6 @@ def i18nLoading(translationPath : str, locale : str) -> None:
     i18n.load_path.append(translationPath)
     i18n.set('locale', locale)
     i18n.set('fallback', 'en')
-
 
 if __name__=="__main__":
 

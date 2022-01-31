@@ -1,5 +1,5 @@
 fr:
-  hello_world: "Bonjour le monde"
+  init: "Init..."
   temperature:
     current: "Temperature courante : \n%{value}%{unit}"
     feelslike: "Ressentie : \n%{value}%{unit}"

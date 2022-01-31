@@ -1,3 +1,4 @@
 dotenv
 pyqt5
 python-i18n
+pytz

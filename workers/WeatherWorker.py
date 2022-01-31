@@ -7,6 +7,7 @@ from classes.element.Position import Position
 from classes.element.Temperature import Temperature
 from classes.element.Wind import Wind
 from classes.element.Weather import Weather
+from classes.element.Miscellaneous import Miscellaneaous
 
 class WeatherWorker(QObject):
     """
@@ -57,13 +58,12 @@ class WeatherWorker(QObject):
         rObject = DataRequest(self.__apiKey)
         try:
             result = rObject.makeRequest(uri="https://api.openweathermap.org", url="data/2.5/weather", getParams="id="+str(pos.getId()))
-            
+
             weatherData = Weather(
                 wind=Wind(speed=result['wind']['speed'], direction=result['wind']['deg']), 
                 position=pos, 
-                temperature=Temperature(current=result['main']['temp'], min=result['main']['temp_min'], max=result['main']['temp_max'], feelsLike=result['main']['feels_like']), 
-                pressure=result['main']['pressure'], 
-                humidity=result['main']['humidity'])
+                temperature=Temperature(current=result['main']['temp'], min=result['main']['temp_min'], max=result['main']['temp_max'], feelsLike=result['main']['feels_like']),
+                misc=Miscellaneaous(pressure=result['main']['pressure'], humidity=result['main']['humidity'], sunset=result['sys']['sunset'], sunrise=result['sys']['sunrise']))
 
             return weatherData
         except:

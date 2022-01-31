@@ -1,6 +1,7 @@
 from classes.element.Wind import Wind
 from classes.element.Position import Position
 from classes.element.Temperature import Temperature
+from classes.element.Miscellaneous import Miscellaneaous
 
 class Weather:
     """
@@ -10,7 +11,7 @@ class Weather:
         :date: 23 Janvier 2022
         :version: 1.0
     """
-    def __init__(self, wind : Wind = None, position : Position = None, temperature : Temperature = None) -> None:
+    def __init__(self, wind : Wind = None, position : Position = None, temperature : Temperature = None, misc : Miscellaneaous = None) -> None:
 
         """
             Constructor
@@ -21,10 +22,13 @@ class Weather:
             :type position: Position
             :param temperature: Optional; Default : None; Place's temperature
             :type temperature: Temperature
+            :param misc: Optional; Default : None; Place's misc data
+            :type misc: Miscellaneaous
         """
         self.setWind(wind)
         self.setPosition(position)
         self.setTemperature(temperature)
+        self.setMisc(misc)
     
     def __str__(self) -> str:
         """
@@ -32,7 +36,7 @@ class Weather:
 
             :rtype: str
         """
-        return "Wind : ["+str(self.getWind())+"], Position : ["+str(self.getPosition())+"], Temperature : ["+str(self.getTemperature())+"], Pressure : ["+str(self.getPressure())+"], Humidity : ["+str(self.getHumidity())+"]"
+        return "Wind : ["+str(self.getWind())+"], Position : ["+str(self.getPosition())+"], Temperature : ["+str(self.getTemperature())+"], Misc : ["+str(self.getMisc())+"]"
 
     def setWind(self, wind : Wind) -> None:
         """
@@ -87,3 +91,21 @@ class Weather:
             :rtype: Temperature
         """
         return self.__temperature
+
+    def setMisc(self, misc : Miscellaneaous) -> None:
+        """
+            Misc's setter
+
+            :param misc: Place's misc data
+            :type misc: Miscellaneaous
+        """
+        self.__misc = misc
+
+    def getMisc(self) -> Miscellaneaous:
+        """
+            Misc's setter
+
+            :return: Place's misc data
+            :rtype: Miscellaneaous
+        """
+        return self.__misc

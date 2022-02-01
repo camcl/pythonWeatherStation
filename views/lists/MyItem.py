@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QListWidgetItem
+from PyQt6.QtWidgets import QListWidgetItem
 
 from classes.element.Position import Position
 

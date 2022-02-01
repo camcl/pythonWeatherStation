@@ -1,6 +1,6 @@
 import json
 
-from PyQt5.QtCore import QObject, pyqtSignal
+from PyQt6.QtCore import QObject, pyqtSignal
 from views.lists.MyItem import MyItem
 from classes.element.Position import Position
 

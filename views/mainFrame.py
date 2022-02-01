@@ -1,5 +1,5 @@
-from PyQt5.QtCore import pyqtSignal
-from PyQt5.QtWidgets import QMainWindow, QWidget
+from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtWidgets import QMainWindow, QWidget
 
 from views.lists.MyItem import MyItem
 from views.lists.CityList import CityList

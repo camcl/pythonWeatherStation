@@ -1,4 +1,5 @@
 dotenv
-pyqt5
+pyqt6
 python-i18n
 pytz
+folium

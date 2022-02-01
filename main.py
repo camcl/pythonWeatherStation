@@ -15,8 +15,8 @@ from views.lists.MyItem import MyItem
 from workers.CitiesWorker import CitiesWorker
 from workers.WeatherWorker import WeatherWorker
 
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtCore import QThread
+from PyQt6.QtWidgets import QApplication
+from PyQt6.QtCore import QThread
 
 # Globals used by all threads
 hasToReadWeather = True
@@ -213,4 +213,4 @@ if __name__=="__main__":
     citiesWorker.finished.connect(finishedCitiesWorker) # Connecting the main thread function on thread ending
     t2.start() # Starting the thread
 
-    sys.exit(app.exec_()) # Starting the application
+    sys.exit(app.exec()) # Starting the application

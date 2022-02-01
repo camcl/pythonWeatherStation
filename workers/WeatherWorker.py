@@ -1,6 +1,6 @@
 from typing import Any
 from time import sleep
-from PyQt5.QtCore import QObject, pyqtSignal
+from PyQt6.QtCore import QObject, pyqtSignal
 
 from classes.httpRequest.DataRequest import DataRequest
 from classes.element.Position import Position

@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QWidget, QGridLayout
+from PyQt6.QtWidgets import QWidget, QGridLayout
 
 class BasicItem(QWidget):
     """

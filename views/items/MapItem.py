@@ -1,6 +1,6 @@
 import io
-from PySide6.QtWebEngineWidgets import QWebEngineView
-from PySide6.QtWidgets import QWidget
+from PyQt6.QtWebEngineWidgets import QWebEngineView
+from PyQt6.QtWidgets import QWidget
 from views.items.BasicItem import BasicItem
 
 import folium

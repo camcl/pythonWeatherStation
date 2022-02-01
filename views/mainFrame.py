@@ -1,5 +1,5 @@
-from PySide6.QtCore import pyqtSignal
-from PySide6.QtWidgets import QMainWindow, QWidget
+from PyQt6.QtCore import pyqtSignal
+from PyQt6.QtWidgets import QMainWindow, QWidget
 
 from views.lists.MyItem import MyItem
 from views.lists.CityList import CityList
@@ -19,7 +19,7 @@ class MainFrame(QMainWindow):
     """
 
     """
-        Clicking signal on the cities list
+        Clicking pyqtSignal on the cities list
     """
     clickedSig = pyqtSignal(Position)
 

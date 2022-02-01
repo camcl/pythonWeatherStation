@@ -1,6 +1,6 @@
 from typing import Any
 from time import sleep
-from PySide6.QtCore import QObject, pyqtSignal
+from PyQt6.QtCore import QObject, pyqtSignal
 
 from classes.httpRequest.DataRequest import DataRequest
 from classes.element.Position import Position
@@ -19,12 +19,12 @@ class WeatherWorker(QObject):
     """
 
     """
-        Signal to be send when the worker is over
+        pyqtSignal to be send when the worker is over
     """
     finished = pyqtSignal()
 
     """
-        Signal to be send while the worker has a new value to send
+        pyqtSignal to be send while the worker has a new value to send
     """
     progress = pyqtSignal(Weather)
 

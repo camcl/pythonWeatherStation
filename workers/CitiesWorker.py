@@ -1,6 +1,6 @@
 import json
 
-from PySide6.QtCore import QObject, pyqtSignal
+from PyQt6.QtCore import QObject, pyqtSignal
 from views.lists.MyItem import MyItem
 from classes.element.Position import Position
 
@@ -14,12 +14,12 @@ class CitiesWorker(QObject):
     """
 
     """
-        Signal to be sent if the worker is over 
+        pyqtSignal to be sent if the worker is over 
     """
     finished = pyqtSignal()
     
     """
-        Signal to be sent while the worker is in progress
+        pyqtSignal to be sent while the worker is in progress
     """
     progress = pyqtSignal(MyItem)
 

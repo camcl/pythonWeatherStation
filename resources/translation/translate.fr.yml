@@ -8,5 +8,9 @@ fr:
     celsius: "°C"
     fahrenheit: "°F"
     kelvin: "K"
-  pression: ""
-  humidity: ""
+  wind:
+    speed: "%{value}m/s"
+    direction: "%{value}°"
+  atmo:
+    pressure: "%{value}hPa"
+    humidity: "%{value}%%"

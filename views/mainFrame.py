@@ -144,7 +144,7 @@ class MainFrame(QMainWindow):
         self.__atm = atm
         self.layout().addChildWidget(self.__atm)
 
-    def getAtm(self) -> HoursItem:
+    def getAtm(self) -> AtmosphericItem:
         """
             Atm widget getter
 

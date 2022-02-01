@@ -31,9 +31,9 @@ class TempItem(BasicItem):
             :type height: int
         """
         super().__init__(parent, x, y, width, height)
-        self.initWidget()
+        self.__initWidget()
 
-    def initWidget(self):
+    def __initWidget(self):
         """
             Create the labels
         """

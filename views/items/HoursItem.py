@@ -32,9 +32,9 @@ class HoursItem(BasicItem):
             :type height: int
         """
         super().__init__(parent, x, y, width, height)
-        self.initWidget()
+        self.__initWidget()
 
-    def initWidget(self) -> None:
+    def __initWidget(self) -> None:
         """
             Init the widget by creating the elements
         """

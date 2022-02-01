@@ -7,12 +7,12 @@ class Wind:
         :version: 1.0
     """
 
-    def __init__(self, speed : int = 0, direction : int = 0) -> None:
+    def __init__(self, speed : float = 0, direction : int = 0) -> None:
         """
             Constructor
         
             :param speed: Optional; Default : 0; Wind's speed
-            :type speed: int
+            :type speed: float
             :param direction: Optional; Default : 0; Wind's direction in degrees relative to North (0 : North, 90 : East, 180 : South, 270 : West)
             :type direction: int
         """
@@ -27,12 +27,12 @@ class Wind:
         """
         return "Speed : ["+str(self.getSpeed())+"], Direction : ["+str(self.getDirection())+"]"
 
-    def setSpeed(self, speed : int) -> None:
+    def setSpeed(self, speed : float) -> None:
         """
             Wind's speed setter
 
             :param speed: Wind's speed
-            :type speed: int
+            :type speed: float
         """
         self.__speed = speed
 
@@ -45,12 +45,12 @@ class Wind:
         """
         self.__direction = direction
 
-    def getSpeed(self) -> int:
+    def getSpeed(self) -> float:
         """
             Wind's speed getter
 
             :return: Wind's speed
-            :rtype: int
+            :rtype: float
         """
         return self.__speed
 

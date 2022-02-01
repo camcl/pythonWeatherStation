@@ -101,6 +101,12 @@ def progressWeatherWorker(weather : Weather) -> None:
         ex.getSunHours().setSunriseValue(weather.getMisc().getSunrise(), configur.get('time','timezone'))
         ex.getSunHours().setSunsetValue(weather.getMisc().getSunset(), configur.get('time','timezone'))
 
+        # Set the atmospheric data
+        ex.getAtm().setWindSpeedValue(weather.getWind().getSpeed())
+        ex.getAtm().setWindDirectionValue(weather.getWind().getDirection())
+        ex.getAtm().setPressureValue(weather.getMisc().getPressure())
+        ex.getAtm().setHumidityValue(weather.getMisc().getHumidity())
+
         # Print the weather to debug for information
         logger.debug(weather)
 

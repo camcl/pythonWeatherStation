@@ -28,9 +28,9 @@ class AtmosphericItem(BasicItem):
             :type height: int
         """
         super().__init__(parent, x, y, width, height)
-        self.initWidget()
+        self.__initWidget()
 
-    def initWidget(self) -> None:
+    def __initWidget(self) -> None:
         """
             Init the widget
         """
@@ -53,4 +53,47 @@ class AtmosphericItem(BasicItem):
         self.__pressure.setText(i18n.t("translate.init"))
         self.__pressure.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__pressure.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        super().getGridLayout().addWidget(self.__pressure, 1, 0, 1, 2)
+        super().getGridLayout().addWidget(self.__pressure, 1, 0, 1, 1)
+
+        self.__humidity = QLabel()
+        self.__humidity.setStyleSheet("QLabel { background-color : purple; }")
+        self.__humidity.setText(i18n.t("translate.init"))
+        self.__humidity.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
+        self.__humidity.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        super().getGridLayout().addWidget(self.__humidity, 1, 1, 1, 1)
+
+    def setWindSpeedValue(self, windSpeed : float) -> None:
+        """
+            Set the text inside the wind speed label
+
+            :param windSpeed: The value to print
+            :type windSpeed: float
+        """
+        self.__windSpeed.setText(i18n.t("translate.wind.speed", value=windSpeed))
+    
+    def setWindDirectionValue(self, windDirection : int) -> None:
+        """
+            Set the text inside the wind direction label
+
+            :param windDirection: The value to print
+            :type windDirection: int
+        """
+        self.__windDirection.setText(i18n.t("translate.wind.direction", value=windDirection))
+
+    def setPressureValue(self, pressure : int) -> None:
+        """
+            Set the text inside the pressure label
+
+            :param pressure: The value to print
+            :type pressure: int
+        """
+        self.__pressure.setText(i18n.t("translate.atmo.pressure", value=pressure))
+
+    def setHumidityValue(self, humidity : int) -> None:
+        """
+            Set the text inside the humidity label
+
+            :param humidity: The value to print
+            :type humidity: int
+        """
+        self.__humidity.setText(i18n.t("translate.atmo.humidity", value=humidity))

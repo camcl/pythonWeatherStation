@@ -1,12 +1,13 @@
-from datetime import datetime
-from time import strftime
 from PyQt5.QtCore import Qt
-from PyQt5.QtGui  import QFont
 from PyQt5.QtWidgets import QWidget, QLabel, QGridLayout, QSizePolicy
+
+from views.items.BasicItem import BasicItem
+
+from datetime import datetime
 import i18n
 from pytz import timezone
 
-class SunsetSunrise(QWidget):
+class HoursItem(BasicItem):
     """
         This class is used to print the sunset and sunrise hour
 
@@ -30,18 +31,13 @@ class SunsetSunrise(QWidget):
             :param height: Optional; Default : 350; Widget's height
             :type height: int
         """
-        super().__init__(parent)
-        self.__x = x
-        self.__y = y
-        self.__width = width
-        self.__height = height
+        super().__init__(parent, x, y, width, height)
         self.initWidget()
 
     def initWidget(self) -> None:
         """
             Init the widget by creating the elements
         """
-        self.__gridLayout = QGridLayout(self)
 
         # The hour of sunrise
         self.__sunrise = QLabel()
@@ -49,7 +45,7 @@ class SunsetSunrise(QWidget):
         self.__sunrise.setText(i18n.t("translate.init"))
         self.__sunrise.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__sunrise.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.__gridLayout.addWidget(self.__sunrise, 0, 0, 1, 1)
+        super().getGridLayout().addWidget(self.__sunrise, 0, 0, 1, 1)
 
         # The hour of sunset
         self.__sunset = QLabel()
@@ -57,9 +53,7 @@ class SunsetSunrise(QWidget):
         self.__sunset.setText(i18n.t("translate.init"))
         self.__sunset.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__sunset.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.__gridLayout.addWidget(self.__sunset, 1, 0, 1, 1)
-
-        self.setGeometry(self.__x, self.__y, self.__width, self.__height)
+        super().getGridLayout().addWidget(self.__sunset, 1, 0, 1, 1)
 
     def setSunsetValue(self, sunset : int, zone : str = "Etc/Greenwich") -> None:
         """

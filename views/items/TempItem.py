@@ -2,9 +2,11 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui  import QFont
 from PyQt5.QtWidgets import QWidget, QLabel, QGridLayout, QSizePolicy
 
+from views.items.BasicItem import BasicItem
+
 import i18n
 
-class TempItem(QWidget):
+class TempItem(BasicItem):
     """
         Temperature part manager
 
@@ -28,19 +30,13 @@ class TempItem(QWidget):
             :param height: Optional; Default : 350; Widget's height
             :type height: int
         """
-        super().__init__(parent)
-        self.__realX = x
-        self.__realY = y
-        self.__realWidth = width
-        self.__realHeight = height
+        super().__init__(parent, x, y, width, height)
         self.initWidget()
 
     def initWidget(self):
         """
             Create the labels
         """
-        self.__gridLayout = QGridLayout(self)
-
         # Current temperature label
         self.__labelCurrent = QLabel()
         self.__labelCurrent.setStyleSheet("QLabel { background-color : red; }")
@@ -52,7 +48,7 @@ class TempItem(QWidget):
         fontType.setBold(True)
         fontType.setPointSize(20)
         self.__labelCurrent.setFont(fontType)
-        self.__gridLayout.addWidget(self.__labelCurrent, 0, 0, 2, 4)
+        super().getGridLayout().addWidget(self.__labelCurrent, 0, 0, 2, 4)
         
         # Feels like temperature
         self.__labelFeels = QLabel()
@@ -60,7 +56,7 @@ class TempItem(QWidget):
         self.__labelFeels.setText(i18n.t("translate.init"))
         self.__labelFeels.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__labelFeels.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.__gridLayout.addWidget(self.__labelFeels, 2, 1, 1, 1)
+        super().getGridLayout().addWidget(self.__labelFeels, 2, 1, 1, 1)
 
         # Minimal temperature
         self.__labelMin = QLabel()
@@ -68,7 +64,7 @@ class TempItem(QWidget):
         self.__labelMin.setText(i18n.t("translate.init"))
         self.__labelMin.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__labelMin.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.__gridLayout.addWidget(self.__labelMin, 2, 2, 1, 1)
+        super().getGridLayout().addWidget(self.__labelMin, 2, 2, 1, 1)
 
         # Maximal temperature
         self.__labelMax = QLabel()
@@ -76,9 +72,7 @@ class TempItem(QWidget):
         self.__labelMax.setText(i18n.t("translate.init"))
         self.__labelMax.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__labelMax.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        self.__gridLayout.addWidget(self.__labelMax, 2, 3, 1, 1)
-
-        self.setGeometry(self.__realX, self.__realY, self.__realWidth, self.__realHeight)
+        super().getGridLayout().addWidget(self.__labelMax, 2, 3, 1, 1)
 
     def setCurrentTempText(self, temp : float, unit : str) -> None:
         """

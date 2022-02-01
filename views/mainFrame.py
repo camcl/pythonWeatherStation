@@ -1,17 +1,15 @@
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QMainWindow, QWidget
 
-from views.MyItem import MyItem
-from views.CityList import CityList
-from views.SunSetSunRise import SunsetSunrise
-from views.TempItem import TempItem
+from views.lists.MyItem import MyItem
+from views.lists.CityList import CityList
+from views.items.HoursItem import HoursItem
+from views.items.TempItem import TempItem
+from views.items.AtmosphericItem import AtmosphericItem
 
 from classes.element.Position import Position
 
-import i18n
-
 class MainFrame(QMainWindow):
-
     """
         Main Window
 
@@ -60,22 +58,26 @@ class MainFrame(QMainWindow):
         """
         # Creating an empty list for cities
         citiesList = CityList(x=self.__width * 0.1, y=self.__height * 0.1, width= self.__width * 0.3, height=self.__height * 0.6)
-        self.setCitiesList(citiesList)
+        self.__setCitiesList(citiesList)
 
         # Creating the temperature widget 
         temp = TempItem(x=self.__width * 0.4, y=self.__height * 0.1, width=self.__width * 0.25, height= self.__height * 0.3)
-        self.setTemp(temp)
+        self.__setTemp(temp)
 
         # Creating the sunset/sunrise widget
-        sunHours = SunsetSunrise(x=self.__width * 0.7, y=self.__height * 0.1, width=self.__width * 0.25, height=self.__height * 0.3)
-        self.setSunHours(sunHours)
+        sunHours = HoursItem(x=self.__width * 0.7, y=self.__height * 0.1, width=self.__width * 0.25, height=self.__height * 0.3)
+        self.__setSunHours(sunHours)
+
+        # Creating the atmo item
+        atm = AtmosphericItem(x=self.__width * 0.4, y=self.__height * 0.4, width=self.__width * 0.25, height=self.__height * 0.3)
+        self.__setAtm(atm)
 
         # Setting the size of the window
         self.setFixedSize(self.__width, self.__height)
         self.move(self.__x, self.__y)
         self.show()
 
-    def setCitiesList(self, citiesList : CityList) -> None:
+    def __setCitiesList(self, citiesList : CityList) -> None:
         """
             Cities List widget setter
 
@@ -94,7 +96,7 @@ class MainFrame(QMainWindow):
         """
         return self.__cities
 
-    def setTemp(self, temp : TempItem) -> None:
+    def __setTemp(self, temp : TempItem) -> None:
         """
             Temperature widget setter
 
@@ -113,24 +115,43 @@ class MainFrame(QMainWindow):
         """
         return self.__temp
 
-    def setSunHours(self, sunHours : SunsetSunrise) -> None:
+    def __setSunHours(self, sunHours : HoursItem) -> None:
         """
             Sunhours widget setter
 
             :param sunHours: The widget of sun hours
-            :type sunHours: SunsetSunrise
+            :type sunHours: HoursItem
         """
         self.__sunHours = sunHours
         self.layout().addChildWidget(self.__sunHours)
 
-    def getSunHours(self) -> SunsetSunrise:
+    def getSunHours(self) -> HoursItem:
         """
             Sunhours widget getter
 
             :return: The widget of sun hours
-            :rtype: SunsetSunrise
+            :rtype: HoursItem
         """
         return self.__sunHours
+    
+    def __setAtm(self, atm : AtmosphericItem) -> None:
+        """
+            Atm widget setter
+
+            :param atm: The widget of sun hours
+            :type atm: AtmosphericItem
+        """
+        self.__atm = atm
+        self.layout().addChildWidget(self.__atm)
+
+    def getAtm(self) -> HoursItem:
+        """
+            Atm widget getter
+
+            :return: The widget of atm
+            :rtype: AtmosphericItem
+        """
+        return self.__atm
 
     def clicked(self, item : MyItem) -> None:
         """

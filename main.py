@@ -10,7 +10,7 @@ from classes.element.Temperature import Temperature
 from classes.element.Weather import Weather
 
 from views.MainFrame import MainFrame
-from views.MyItem import MyItem
+from views.lists.MyItem import MyItem
 
 from workers.CitiesWorker import CitiesWorker
 from workers.WeatherWorker import WeatherWorker

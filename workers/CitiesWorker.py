@@ -1,7 +1,7 @@
 import json
 
 from PyQt5.QtCore import QObject, pyqtSignal
-from views.MyItem import MyItem
+from views.lists.MyItem import MyItem
 from classes.element.Position import Position
 
 class CitiesWorker(QObject):

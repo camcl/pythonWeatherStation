@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QListWidget,QWidget
+from PySide6.QtWidgets import QListWidget,QWidget
 
 
 class CityList(QListWidget):

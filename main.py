@@ -15,8 +15,8 @@ from views.lists.MyItem import MyItem
 from workers.CitiesWorker import CitiesWorker
 from workers.WeatherWorker import WeatherWorker
 
-from PyQt6.QtWidgets import QApplication
-from PyQt6.QtCore import QThread
+from PySide6.QtWidgets import QApplication
+from PySide6.QtCore import QThread
 
 # Globals used by all threads
 hasToReadWeather = True

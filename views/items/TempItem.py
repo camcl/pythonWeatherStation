@@ -1,6 +1,6 @@
-from PyQt6.QtCore import Qt
-from PyQt6.QtGui  import QFont
-from PyQt6.QtWidgets import QWidget, QLabel, QGridLayout, QSizePolicy
+from PySide6.QtCore import Qt
+from PySide6.QtGui  import QFont
+from PySide6.QtWidgets import QWidget, QLabel, QGridLayout, QSizePolicy
 
 from views.items.BasicItem import BasicItem
 

@@ -1,5 +1,6 @@
 import io
-from PyQt6.QtWidgets import QWidget
+from PySide6.QtWebEngineWidgets import QWebEngineView
+from PySide6.QtWidgets import QWidget
 from views.items.BasicItem import BasicItem
 
 import folium
@@ -35,7 +36,7 @@ class MapItem(BasicItem):
         """
             This initialize the widget
         """
-        self.__view = QtWebEngineWidgets.QWebEngineView()
+        self.__view = QWebEngineView()
         self.__view.setContentsMargins(50, 50, 50, 50)
         map = folium.Map()
 

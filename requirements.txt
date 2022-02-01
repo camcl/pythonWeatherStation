@@ -1,5 +1,5 @@
 dotenv
-pyqt6
+PySide6
 python-i18n
 pytz
 folium

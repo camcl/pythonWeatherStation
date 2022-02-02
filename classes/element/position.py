@@ -6,7 +6,6 @@ class Position:
         :date: January 15, 2022
         :version: 1.0
     """
-
     def __init__(self, name : str, country : str, id : int, longitude : float, latitude : float):
         """
             Constructor

@@ -37,8 +37,26 @@ class MapItem(BasicItem):
             This initialize the widget
         """
         self.__view = QWebEngineView()
-        self.__view.setContentsMargins(50, 50, 50, 50)
-        map = folium.Map()
+        self.__map = folium.Map(tiles="OpenStreetMap", zoom_start=2)
+        self.__data = io.BytesIO()
+        super().getGridLayout().addWidget(self.__view, 0, 0, 1, 1)
 
-        data = io.BytesIO()
-        map.save(data, close_file=False)
+    def printTheMap(self) -> None:
+        """
+            Prints the map
+        """
+        self.__map.save(self.__data, close_file=False)
+        self.__view.setHtml(self.__data.getvalue().decode())
+
+    def addACityOnMap(self, lat : float, lon : float, name : str) -> None:
+        """
+            Add a marker to the map
+
+            :param lat: The latitude of the place
+            :type lat: float
+            :param lon: The longitude of the place
+            :type lon: float
+            :param name: The name of the place
+            :type name: str
+        """
+        folium.Marker(location=[lat, lon], popup=name).add_to(self.__map)

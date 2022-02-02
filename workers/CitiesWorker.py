@@ -76,11 +76,11 @@ class CitiesWorker(QObject):
                 if(data['country'] == "FR"):
                     qitem = MyItem(
                         Position(
-                            name=data['name'], 
-                            country=data['country'], 
-                            id=data['id'], 
-                            longitude=data['coord']['lon'], 
-                            latitude=data['coord']['lat']),
+                            name=str(data['name']), 
+                            country=str(data['country']), 
+                            id=int(data['id']), 
+                            longitude=float(data['coord']['lon']), 
+                            latitude=float(data['coord']['lat'])),
                         isChoosen=int(data['id'])==self.__choosenCity
                         )
                     self.progress.emit(qitem)

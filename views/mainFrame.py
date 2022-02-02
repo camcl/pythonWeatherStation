@@ -1,5 +1,6 @@
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QMainWindow, QWidget
+from views.items.MapItem import MapItem
 
 from views.lists.MyItem import MyItem
 from views.lists.CityList import CityList
@@ -57,20 +58,24 @@ class MainFrame(QMainWindow):
             Window initialisation (widgets creation) and positionning
         """
         # Creating an empty list for cities
-        citiesList = CityList(x=self.__width * 0.1, y=self.__height * 0.1, width= self.__width * 0.3, height=self.__height * 0.6)
-        self.__setCitiesList(citiesList)
+        #citiesList = CityList(x=self.__width * 0.1, y=self.__height * 0.1, width= self.__width * 0.3, height=self.__height * 0.6)
+        #self.__setCitiesList(citiesList)
 
         # Creating the temperature widget 
-        temp = TempItem(x=self.__width * 0.4, y=self.__height * 0.1, width=self.__width * 0.25, height= self.__height * 0.3)
+        temp = TempItem(x=self.__width * 0.7, y=self.__height * 0.1, width=self.__width * 0.25, height= self.__height * 0.3)
         self.__setTemp(temp)
 
         # Creating the sunset/sunrise widget
-        sunHours = HoursItem(x=self.__width * 0.7, y=self.__height * 0.1, width=self.__width * 0.25, height=self.__height * 0.3)
+        sunHours = HoursItem(x=self.__width * 0.7, y=self.__height * 0.4, width=self.__width * 0.25, height=self.__height * 0.3)
         self.__setSunHours(sunHours)
 
         # Creating the atmo item
-        atm = AtmosphericItem(x=self.__width * 0.4, y=self.__height * 0.4, width=self.__width * 0.25, height=self.__height * 0.3)
+        atm = AtmosphericItem(x=self.__width * 0.7, y=self.__height * 0.7, width=self.__width * 0.25, height=self.__height * 0.3)
         self.__setAtm(atm)
+
+        # The map
+        mMap = MapItem(x=self.__width * 0.1, y=self.__height * 0.1, width=self.__width * 0.6, height=self.__height * 0.6)
+        self.__setMap(mMap)
 
         # Setting the size of the window
         self.setFixedSize(self.__width, self.__height)
@@ -152,6 +157,25 @@ class MainFrame(QMainWindow):
             :rtype: AtmosphericItem
         """
         return self.__atm
+
+    def __setMap(self, mMap : MapItem) -> None:
+        """
+            Map widget setter
+
+            :param map: The widget of sun hours
+            :type map: MapItem
+        """
+        self.__map = mMap
+        self.layout().addChildWidget(self.__map)
+
+    def getMap(self) -> MapItem:
+        """
+            Atm widget getter
+
+            :return: The widget of atm
+            :rtype: MapItem
+        """
+        return self.__map
 
     def clicked(self, item : MyItem) -> None:
         """

@@ -124,9 +124,16 @@ def progressCitiesWorker(item : MyItem) -> None:
         :type item: MyItem
     """
     if(item != None):
-        ex.getCitiesList().addItem(item)
+        #ex.getCitiesList().addItem(item)
+        lat = item.getPosition().getLatitude()
+        lon = item.getPosition().getLongitude()
+        name = item.getPosition().getName()
+        ex.getMap().addACityOnMap(
+            lat=lat, 
+            lon=lon, 
+            name=name)
         if(item.isChoosen()):
-            ex.getCitiesList().setCurrentItem(item)
+            #ex.getCitiesList().setCurrentItem(item)
             newCityChoosen(item.getPosition())
     else:
         logger.error("Cities can't load properly")
@@ -135,6 +142,7 @@ def finishedCitiesWorker() -> None:
     """
         The function to executed when the finished signal of the cities worker is called
     """
+    ex.getMap().printTheMap()
     ex.update()
     logger.debug("Cities loading finished")
 
@@ -179,7 +187,8 @@ if __name__=="__main__":
     app.aboutToQuit.connect(cleanUp)
 
     # Main window creation and signals adding
-    ex=MainFrame(x=0,y=0,width=app.primaryScreen().size().width(),height=app.primaryScreen().size().height())
+    # x=0,y=0,width=app.primaryScreen().size().width(),height=app.primaryScreen().size().height()
+    ex=MainFrame()
     ex.clickedSig.connect(newCityChoosen) # Add a signal on a list item click
 
     # Starting the weather reading thread

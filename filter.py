@@ -1,7 +1,7 @@
 import json
 import csv
 
-def filterList(cityFilter : list, countryCodeFilter : list, inFilePath : str):
+def filterList(citiesFilter : list, countriesFilter : list, inFilePath : str):
     """
         This function filters a list of data in a file as a json and put it in the out file
 
@@ -20,11 +20,12 @@ def filterList(cityFilter : list, countryCodeFilter : list, inFilePath : str):
             jsonIn = json.load(fileIn)
 
             for d in jsonIn:
-                if(d["name"] in cityFilter and d["country"] in countryCodeFilter):
+                if(d["name"] in citiesFilter and d["country"] in countriesFilter):
                     finalList.append(d)
 
     return finalList
 
+# A little example to use the filterList function with a csv file containing a list of french departements "prefectures"
 if __name__=="__main__":
     with open("./resources/departements-francais.csv", encoding="utf-8") as csvFile:
         csvReader = csv.reader(csvFile, delimiter="\t")

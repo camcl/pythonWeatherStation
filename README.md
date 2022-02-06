@@ -15,7 +15,7 @@ Then you will need to create an empty logs folder (for the logs of the applicati
 
 ### First file
 
-The first one has to be called settings.ini and contains the following to start 
+The first one contains the following to start 
 
 ```
 [weather]
@@ -48,7 +48,7 @@ The timezone is a compatible version of pytz timezone (https://gist.github.com/h
 
 ### Second file
 
-The second file has to be called .env and contains only the following
+The second file contains only the following
 
 ```
 API_KEY=<your very secret API key>
@@ -57,6 +57,21 @@ API_KEY=<your very secret API key>
 ## Launching
 
 To run the application you only need to run the file called `main.py`
+
+### Command line options
+
+There are several command lines options :
+
+- --settings : Specify the settings file path (relative or absolute)
+- --env : Specify the env file path (relative or absolute)
+- --log_level : The log level (in logging details)
+  - 10 : DEBUG
+  - 20 : INFO
+  - 30 : WARNING
+  - 40 : ERROR
+  - 50 : CRITICAL
+- --log_info_file : Specify the log info file
+- --log_crit_file : Specify the log error file
 
 ## Tests
 

@@ -25,10 +25,10 @@ from PyQt6.QtCore import QThread
 hasToReadWeather = True
 
 # Default values for options
-confFileName = "settings.ini"
-envFileName = ".env"
-logInfo = "info.log"
-logCritical = "critical.log"
+confFileName = "./conf/settings.ini"
+envFileName = "./conf/.env"
+logInfo = "./logs/info.log"
+logCritical = "./logs/critical.log"
 logLevel = 20
 
 def cleanUp():
@@ -138,6 +138,14 @@ def i18nLoading(translationPath : str, locale : str) -> None:
     i18n.set('fallback', 'en')
 
 def startApp() -> None:
+
+    # Default values for options
+    confFileName = "./conf/settings.ini"
+    envFileName = "./conf/.env"
+    logInfo = "./logs/info.log"
+    logCritical = "./logs/critical.log"
+    logLevel = 20
+    
     # Process command line options
     opts, args = getopt.getopt(sys.argv[1:], "", ["settings=","env=","log_level=", "log_info_file=", "log_crit_file="])
 

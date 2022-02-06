@@ -34,29 +34,29 @@ class AtmosphericItem(BasicItem):
         """
             Init the widget
         """
-        self.__windSpeed = QLabel()
-        self.__windSpeed.setText(i18n.t("translate.init"))
-        self.__windSpeed.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
-        self.__windSpeed.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        super().getGridLayout().addWidget(self.__windSpeed, 0, 0, 1, 1)
+        self.__windSpeedLabel = QLabel()
+        self.__windSpeedLabel.setText(i18n.t("translate.init"))
+        self.__windSpeedLabel.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
+        self.__windSpeedLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        super().getGridLayout().addWidget(self.__windSpeedLabel, 0, 0, 1, 1)
 
-        self.__windDirection = QLabel()
-        self.__windDirection.setText(i18n.t("translate.init"))
-        self.__windDirection.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
-        self.__windDirection.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        super().getGridLayout().addWidget(self.__windDirection, 0, 1, 1, 1)
+        self.__windDirectionLabel = QLabel()
+        self.__windDirectionLabel.setText(i18n.t("translate.init"))
+        self.__windDirectionLabel.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
+        self.__windDirectionLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        super().getGridLayout().addWidget(self.__windDirectionLabel, 0, 1, 1, 1)
 
-        self.__pressure = QLabel()
-        self.__pressure.setText(i18n.t("translate.init"))
-        self.__pressure.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
-        self.__pressure.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        super().getGridLayout().addWidget(self.__pressure, 0, 2, 1, 1)
+        self.__pressureLabel = QLabel()
+        self.__pressureLabel.setText(i18n.t("translate.init"))
+        self.__pressureLabel.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
+        self.__pressureLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        super().getGridLayout().addWidget(self.__pressureLabel, 0, 2, 1, 1)
 
-        self.__humidity = QLabel()
-        self.__humidity.setText(i18n.t("translate.init"))
-        self.__humidity.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
-        self.__humidity.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        super().getGridLayout().addWidget(self.__humidity, 0, 3, 1, 1)
+        self.__humidityLabel = QLabel()
+        self.__humidityLabel.setText(i18n.t("translate.init"))
+        self.__humidityLabel.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
+        self.__humidityLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        super().getGridLayout().addWidget(self.__humidityLabel, 0, 3, 1, 1)
 
     def setWindSpeedValue(self, windSpeed : float) -> None:
         """
@@ -65,7 +65,7 @@ class AtmosphericItem(BasicItem):
             :param windSpeed: The value to print
             :type windSpeed: float
         """
-        self.__windSpeed.setText(i18n.t("translate.wind.speed", value=windSpeed))
+        self.__windSpeedLabel.setText(i18n.t("translate.wind.speed", value=windSpeed))
     
     def setWindDirectionValue(self, windDirection : int) -> None:
         """
@@ -74,7 +74,7 @@ class AtmosphericItem(BasicItem):
             :param windDirection: The value to print
             :type windDirection: int
         """
-        self.__windDirection.setText(i18n.t("translate.wind.direction", value=windDirection))
+        self.__windDirectionLabel.setText(i18n.t("translate.wind.direction", value=windDirection))
 
     def setPressureValue(self, pressure : int) -> None:
         """
@@ -83,7 +83,7 @@ class AtmosphericItem(BasicItem):
             :param pressure: The value to print
             :type pressure: int
         """
-        self.__pressure.setText(i18n.t("translate.atmo.pressure", value=pressure))
+        self.__pressureLabel.setText(i18n.t("translate.atmo.pressure", value=pressure))
 
     def setHumidityValue(self, humidity : int) -> None:
         """
@@ -92,4 +92,4 @@ class AtmosphericItem(BasicItem):
             :param humidity: The value to print
             :type humidity: int
         """
-        self.__humidity.setText(i18n.t("translate.atmo.humidity", value=humidity))
+        self.__humidityLabel.setText(i18n.t("translate.atmo.humidity", value=humidity))

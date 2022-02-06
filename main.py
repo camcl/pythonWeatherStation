@@ -79,8 +79,8 @@ def progressWeatherWorker(weather : Weather) -> None:
         ex.getTemp().setMaxTempText(maxT, unit)
 
         # Set the sunrise/sunset values
-        ex.getSunHours().setSunriseValue(weather.getMisc().getSunrise(), Settings.getInstance().get('time','timezone', 'utc'))
-        ex.getSunHours().setSunsetValue(weather.getMisc().getSunset(), Settings.getInstance().get('time','timezone', 'utc'))
+        ex.getSunHours().setSunriseValue(weather.getMisc().getSunrise(), Settings.getInstance().get('time','timezone', 'Etc/UTC'))
+        ex.getSunHours().setSunsetValue(weather.getMisc().getSunset(), Settings.getInstance().get('time','timezone', 'Etc/UTC'))
 
         # Set the atmospheric data
         ex.getAtm().setWindSpeedValue(weather.getWind().getSpeed())

@@ -18,16 +18,16 @@ Then you will need to create an empty logs folder (for the logs of the applicati
 The first one has to be called settings.ini and contains the following to start 
 
 ```
-[logging]
-standard = ./logs/weather.log
-critical = ./logs/critical.log
-level = 20
+[weather]
+tempunit = c
+delay = 1
+
+[time]
+timezone = Etc/UTC
 
 [cities]
-filename = ./resources/city.list.json
-
-[weather]
-delay = 1
+filename = ./resources/filtered.list.json
+choosen = 2981280
 
 [language]
 folder = ./resources/translation
@@ -44,6 +44,8 @@ You can modify the logging level with :
 
 The delay is in seconds for the fetch of the API
 
+The timezone is a compatible version of pytz timezone (https://gist.github.com/heyalexej/8bf688fd67d7199be4a1682b3eec7568)
+
 ### Second file
 
 The second file has to be called .env and contains only the following
@@ -55,3 +57,7 @@ API_KEY=<your very secret API key>
 ## Launching
 
 To run the application you only need to run the file called `main.py`
+
+## Tests
+
+Tests can be run from tests folder

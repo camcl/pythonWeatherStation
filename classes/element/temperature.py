@@ -115,7 +115,7 @@ class Temperature:
             :rtype: float
             :meta static:
         """
-        return value-273.15
+        return round(value-273.15, 2)
 
     def fromCelsiusToKelvin(value : float) -> float:
         """
@@ -127,7 +127,7 @@ class Temperature:
             :rtype: float
             :meta static:
         """
-        return value + 273.15
+        return round(value + 273.15, 2)
 
     def fromCelsiusToFahrenheit(value : float) -> float:
         """
@@ -139,7 +139,7 @@ class Temperature:
             :rtype: float
             :meta static:
         """
-        return value * 1.8 + 32
+        return round(value * 1.8 + 32, 2)
 
     def fromFahrenheitToCelsius(value : float) -> float:
         """
@@ -151,7 +151,7 @@ class Temperature:
             :rtype: float
             :meta static:
         """
-        return (value - 32)/1.8
+        return round((value - 32)/1.8, 2)
 
     def fromFahrenheitToKelvin(value : float) -> float:
         """
@@ -163,7 +163,7 @@ class Temperature:
             :rtype: float
             :meta static:
         """
-        return Temperature.fromCelsiusToKelvin(Temperature.fromFahrenheitToCelsius(value))
+        return round(Temperature.fromCelsiusToKelvin(Temperature.fromFahrenheitToCelsius(value)), 2)
 
     def fromKelvinToFahrenheit(value : float) -> float:
         """
@@ -175,4 +175,4 @@ class Temperature:
             :rtype: float
             :meta static:
         """
-        return Temperature.fromCelsiusToFahrenheit(Temperature.fromKelvinToCelsius(value))
+        return round(Temperature.fromCelsiusToFahrenheit(Temperature.fromKelvinToCelsius(value)), 2)

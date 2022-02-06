@@ -40,9 +40,17 @@ class Wind:
         """
             Wind's direction setter
 
+            The direction is in the 0-360 scope so better be sure
+
             :param direction: Wind's direction
             :type direction: int
         """
+        if(direction < 0):
+            direction = direction + 360
+        
+        if(direction > 360):
+            direction = direction - 360
+
         self.__direction = direction
 
     def getSpeed(self) -> float:

@@ -70,7 +70,7 @@ class MainFrame(QMainWindow):
         self.__setSunHours(sunHours)
 
         # Creating the atmo item
-        atm = AtmosphericItem(x=self.__width * 0.7, y=self.__height * 0.7, width=self.__width * 0.25, height=self.__height * 0.3)
+        atm = AtmosphericItem(x=self.__width * 0.1, y=self.__height * 0.7, width=self.__width * 0.8, height=self.__height * 0.15)
         self.__setAtm(atm)
 
         # The map

@@ -84,4 +84,4 @@ class CitiesWorker(QObject):
                         isChoosen=int(data['id'])==self.__choosenCity
                         )
                     self.progress.emit(qitem)
-            self.finished.emit()
+        self.finished.emit()

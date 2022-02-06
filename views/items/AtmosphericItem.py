@@ -53,14 +53,14 @@ class AtmosphericItem(BasicItem):
         self.__pressure.setText(i18n.t("translate.init"))
         self.__pressure.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__pressure.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        super().getGridLayout().addWidget(self.__pressure, 1, 0, 1, 1)
+        super().getGridLayout().addWidget(self.__pressure, 0, 2, 1, 1)
 
         self.__humidity = QLabel()
         self.__humidity.setStyleSheet("QLabel { background-color : purple; }")
         self.__humidity.setText(i18n.t("translate.init"))
         self.__humidity.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__humidity.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        super().getGridLayout().addWidget(self.__humidity, 1, 1, 1, 1)
+        super().getGridLayout().addWidget(self.__humidity, 0, 3, 1, 1)
 
     def setWindSpeedValue(self, windSpeed : float) -> None:
         """

@@ -136,3 +136,11 @@ conf/
 
 # les logs
 logs/
+
+# Doc source files
+*.rst
+_static
+_templates
+make*
+
+# Makefile for the 

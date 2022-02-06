@@ -12,22 +12,14 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('.'))
-sys.path.insert(0, os.path.abspath('..'))
-sys.path.insert(0, os.path.abspath('../classes'))
-sys.path.insert(0, os.path.abspath('../classes/element'))
-sys.path.insert(0, os.path.abspath('../classes/httpRequest'))
-sys.path.insert(0, os.path.abspath('../views'))
-sys.path.insert(0, os.path.abspath('../workers'))
+sys.path.insert(0, os.path.abspath('../..'))
+
 
 # -- Project information -----------------------------------------------------
 
-project = 'My Weather App'
+project = 'Python Weather App'
 copyright = '2022, Panda <panda@delmasweb.net>'
 author = 'Panda <panda@delmasweb.net>'
-
-# The short X.Y version
-version = '1.0'
 
 # The full version, including alpha/beta/rc tags
 release = '1.0'
@@ -39,12 +31,10 @@ release = '1.0'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.napoleon',      # Supports Google / Numpy docstring 
-    'sphinx.ext.autodoc',       # Documentation from docstrings
-    'sphinx.ext.doctest',       # Test snippets in documentation
-    'sphinx.ext.todo',          # to-do syntax highlighting
-    'sphinx.ext.ifconfig',      # Content based configuration
-    'm2r2'                      # Markdown support 
+    "sphinx.ext.autodoc",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.viewcode",
+    "sphinx.ext.autosummary"
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -53,7 +43,7 @@ templates_path = ['_templates']
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This pattern also affects html_static_path and html_extra_path.
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '__pycache__', '.vscode']
+exclude_patterns = []
 
 
 # -- Options for HTML output -------------------------------------------------
@@ -67,6 +57,3 @@ html_theme = 'alabaster'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
-
-# The source suffix
-source_suffix = ['.rst', '.md']

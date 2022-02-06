@@ -1,6 +1,7 @@
 import os
 import sys
 import i18n
+import getopt
 
 from dotenv import load_dotenv
 from modules.logger.logger import Logger
@@ -22,8 +23,13 @@ from PyQt6.QtCore import QThread
 
 # Globals used by all threads
 hasToReadWeather = True
-confFileName = "conf/settings.ini"
-envFileName = "conf/.env"
+
+# Default values for options
+confFileName = "settings.ini"
+envFileName = ".env"
+logInfo = "info.log"
+logCritical = "critical.log"
+logLevel = 20
 
 def cleanUp():
     """
@@ -131,21 +137,48 @@ def i18nLoading(translationPath : str, locale : str) -> None:
     i18n.set('locale', locale)
     i18n.set('fallback', 'en')
 
-if __name__=="__main__":
+def startApp() -> None:
+    # Process command line options
+    opts, args = getopt.getopt(sys.argv[1:], "", ["settings=","env=","log_level=", "log_info_file=", "log_crit_file="])
 
-    # TODO Add options command lines with getopt. For example settings file path or .env file path
+    for opt, arg in opts:
+        if opt in ['-s', "--settings"]:
+            confFileName = arg
+        elif opt in ['-e', "--env"]:
+            envFileName = arg
+        elif opt in ["--log_level"]:
+            logLevel = int(arg)
+        elif opt in ["--log_info_file"]:
+            logInfo = arg
+        elif opt in ["--log_crit_file"]:
+            logCritical = arg
+        else:
+            print("Option not handled")
+    
+    # Logger loading
+    Logger.getInstance().loadLogger(infoFile=logInfo, criticalFile=logCritical, level=logLevel)
+    
+    # Printing options for debug purposes in the logger (i.e in files and console if wanted)
+    Logger.getInstance().info("Given options : ")
+    Logger.getInstance().info("--settings={}".format(confFileName))
+    Logger.getInstance().info("--env={}".format(envFileName))
+    Logger.getInstance().info("--log_level={}".format(logLevel))
+    Logger.getInstance().info("--log_info_file={}".format(logInfo))
+    Logger.getInstance().info("--log_crit_file={}".format(logCritical))
 
     # Opening informations in .env and .ini files
     load_dotenv(envFileName)
 
-    # Logger loading
-    Logger.getInstance().loadLogger()
-
     # Load settings
-    Settings.getInstance().loadSettings('./conf/settings.ini')
+    Settings.getInstance().loadSettings(confFileName)
+
+if __name__=="__main__":
+
+    # Loading all necessary infos
+    startApp()
 
     # Loading the translations
-    i18nLoading(Settings.getInstance().get('language', 'folder', "./resources"), Settings.getInstance().get('language', 'locale', 'en'))
+    i18nLoading(Settings.getInstance().get('language', 'folder', "./resources/translation"), Settings.getInstance().get('language', 'locale', 'en'))
 
     # Application starting and cleanup adding
     app=QApplication(sys.argv)

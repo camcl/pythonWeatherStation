@@ -58,8 +58,8 @@ class MainFrame(QMainWindow):
             Window initialisation (widgets creation) and positionning
         """
         # Creating an empty list for cities
-        #citiesList = CityList(x=self.__width * 0.1, y=self.__height * 0.1, width= self.__width * 0.3, height=self.__height * 0.6)
-        #self.__setCitiesList(citiesList)
+        citiesList = CityList(x=self.__width * 0.1, y=self.__height * 0.1, width= self.__width * 0.6, height=self.__height * 0.6)
+        self.__setCitiesList(citiesList)
 
         # Creating the temperature widget 
         temp = TempItem(x=self.__width * 0.7, y=self.__height * 0.1, width=self.__width * 0.25, height= self.__height * 0.3)
@@ -74,8 +74,8 @@ class MainFrame(QMainWindow):
         self.__setAtm(atm)
 
         # The map
-        mMap = MapItem(x=self.__width * 0.1, y=self.__height * 0.1, width=self.__width * 0.6, height=self.__height * 0.6)
-        self.__setMap(mMap)
+        #mMap = MapItem(x=self.__width * 0.1, y=self.__height * 0.1, width=self.__width * 0.6, height=self.__height * 0.6)
+        #self.__setMap(mMap)
 
         # Setting the size of the window
         self.setFixedSize(self.__width, self.__height)
@@ -99,7 +99,9 @@ class MainFrame(QMainWindow):
 
             :rtype: CityList
         """
-        return self.__cities
+        if(hasattr(self, '_MainFrame__cities')):
+            return self.__cities
+        return None
 
     def __setTemp(self, temp : TempItem) -> None:
         """
@@ -118,7 +120,9 @@ class MainFrame(QMainWindow):
             :return: The temperature widget
             :rtype: TempItem
         """
-        return self.__temp
+        if(hasattr(self, '_MainFrame__temp')):
+            return self.__temp
+        return None
 
     def __setSunHours(self, sunHours : HoursItem) -> None:
         """
@@ -137,7 +141,9 @@ class MainFrame(QMainWindow):
             :return: The widget of sun hours
             :rtype: HoursItem
         """
-        return self.__sunHours
+        if(hasattr(self, '_MainFrame__sunHours')):
+            return self.__sunHours
+        return None
     
     def __setAtm(self, atm : AtmosphericItem) -> None:
         """
@@ -156,7 +162,9 @@ class MainFrame(QMainWindow):
             :return: The widget of atm
             :rtype: AtmosphericItem
         """
-        return self.__atm
+        if(hasattr(self, '_MainFrame__atm')):
+            return self.__atm
+        return None
 
     def __setMap(self, mMap : MapItem) -> None:
         """
@@ -175,7 +183,9 @@ class MainFrame(QMainWindow):
             :return: The widget of atm
             :rtype: MapItem
         """
-        return self.__map
+        if(hasattr(self, '_MainFrame__map')):
+            return self.__map
+        return None
 
     def clicked(self, item : MyItem) -> None:
         """

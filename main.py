@@ -108,7 +108,7 @@ def progressWeatherWorker(weather : Weather) -> None:
         ex.getAtm().setHumidityValue(weather.getMisc().getHumidity())
 
         # Print the weather to debug for information
-        logger.debug(weather)
+        # logger.debug(weather)
 
 def finishedWeatherWorker() -> None:
     """
@@ -124,16 +124,9 @@ def progressCitiesWorker(item : MyItem) -> None:
         :type item: MyItem
     """
     if(item != None):
-        #ex.getCitiesList().addItem(item)
-        lat = item.getPosition().getLatitude()
-        lon = item.getPosition().getLongitude()
-        name = item.getPosition().getName()
-        ex.getMap().addACityOnMap(
-            lat=lat, 
-            lon=lon, 
-            name=name)
+        ex.getCitiesList().addItem(item)
         if(item.isChoosen()):
-            #ex.getCitiesList().setCurrentItem(item)
+            ex.getCitiesList().setCurrentItem(item)
             newCityChoosen(item.getPosition())
     else:
         logger.error("Cities can't load properly")
@@ -142,7 +135,6 @@ def finishedCitiesWorker() -> None:
     """
         The function to executed when the finished signal of the cities worker is called
     """
-    ex.getMap().printTheMap()
     ex.update()
     logger.debug("Cities loading finished")
 

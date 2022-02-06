@@ -1,10 +1,12 @@
 import io
+
+from PyQt6.QtWebEngineCore import QWebEnginePage
 from PyQt6.QtWebEngineWidgets import QWebEngineView
 from PyQt6.QtWidgets import QWidget
 from views.items.BasicItem import BasicItem
 
 import folium
-
+        
 class MapItem(BasicItem):
     """
         This class is used to print a map and all datas
@@ -45,6 +47,8 @@ class MapItem(BasicItem):
         """
             Prints the map
         """
+        page = QWebEnginePage(self.__view)
+        self.__view.setPage(page)
         self.__map.save(self.__data, close_file=False)
         self.__view.setHtml(self.__data.getvalue().decode())
 
@@ -58,5 +62,18 @@ class MapItem(BasicItem):
             :type lon: float
             :param name: The name of the place
             :type name: str
+        """
+        #formatter = "function(num) {return L.Util.formatNum(num, 3) + ' º ';};"
+        """
+        (
+            position="topright",
+            separator=" | ",
+            empty_string="NaN",
+            lng_first=True,
+            num_digits=20,
+            prefix="Coordinates:",
+            lat_formatter=formatter,
+            lng_formatter=formatter,
+        ).add_to(m)
         """
         folium.Marker(location=[lat, lon], popup=name).add_to(self.__map)

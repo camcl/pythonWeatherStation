@@ -19,6 +19,9 @@ en:
         sw: "South-West"
         w: "West"
         nw: "North-West"
+    time:
+        sunset: "Sunset hour :\n%{hour}"
+        sunrise: "Sunrise hour :\n%{hour}"
     atmo:
         pressure: "Pressure (MSL):\n%{value}hPa"
         humidity: "Humidity :%{value}%%"

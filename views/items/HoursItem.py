@@ -66,7 +66,7 @@ class HoursItem(BasicItem):
             self.__sunsetLabel.setText(i18n.t("translate.init"))
         else:
             format="%H:%M:%S"
-            self.__sunsetLabel.setText(datetime.fromtimestamp(sunset, tz=timezone(zone)).strftime(format))
+            self.__sunsetLabel.setText(i18n.t("translate.time.sunset", hour=datetime.fromtimestamp(sunset, tz=timezone(zone)).strftime(format)))
 
     def setSunriseValue(self, sunrise : int, zone : str = "Etc/Greenwich") -> None:
         """
@@ -81,4 +81,4 @@ class HoursItem(BasicItem):
             self.__sunriseLabel.setText(i18n.t("translate.init"))
         else:
             format="%H:%M:%S"
-            self.__sunriseLabel.setText(datetime.fromtimestamp(sunrise, tz=timezone(zone)).strftime(format))
+            self.__sunriseLabel.setText(i18n.t("translate.time.sunrise", hour=datetime.fromtimestamp(sunrise, tz=timezone(zone)).strftime(format)))

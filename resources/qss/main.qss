@@ -1,3 +1,14 @@
-QLabel { 
-    background-color : yellow; 
+QMainWindow {
+    background-color: darkgrey;
+}
+
+QLabel {
+    background-color: darkred;
+    color: white;
+    border: 2px solid black;
+    font-size: large;
+}
+
+QListWidget {
+    font-size: xx-small;
 }

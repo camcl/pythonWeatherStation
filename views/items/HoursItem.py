@@ -44,14 +44,14 @@ class HoursItem(BasicItem):
         self.__sunriseLabel.setText(i18n.t("translate.init"))
         self.__sunriseLabel.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__sunriseLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        super().getGridLayout().addWidget(self.__sunrise, 0, 0, 1, 1)
+        super().getGridLayout().addWidget(self.__sunriseLabel, 0, 0, 1, 1)
 
         # The hour of sunset
         self.__sunsetLabel = QLabel()
-        self.__sunriseLabel.setText(i18n.t("translate.init"))
-        self.__sunriseLabel.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
-        self.__sunriseLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        super().getGridLayout().addWidget(self.__sunset, 1, 0, 1, 1)
+        self.__sunsetLabel.setText(i18n.t("translate.init"))
+        self.__sunsetLabel.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
+        self.__sunsetLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        super().getGridLayout().addWidget(self.__sunsetLabel, 1, 0, 1, 1)
 
     def setSunsetValue(self, sunset : int, zone : str = "Etc/Greenwich") -> None:
         """

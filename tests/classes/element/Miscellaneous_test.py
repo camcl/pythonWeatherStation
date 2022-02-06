@@ -1,6 +1,8 @@
 import unittest
+from ddt import ddt, data
 from classes.element.Miscellaneous import Miscellaneaous
 
+@ddt
 class TestMiscellaneous(unittest.TestCase):
 
     """
@@ -50,3 +52,34 @@ class TestMiscellaneous(unittest.TestCase):
             Test for string reduction of the Misc class
         """
         self.assertEquals(self.misc.__str__(), "Pressure : [-1], Humidity : [-1], Sunrise : [-1], Sunset : [-1]")
+
+    @data(0, 45, 90, 135, 180, 225, 270, 315)
+    def testConvertDirectionDegreesToString(self, value):
+        """
+            Test for conversion from degrees in direction to position on compass rose
+        """
+        result = Miscellaneaous.convertDirectionDegreesInDirectionString(value)
+        if(value == 0):
+            self.assertEquals(result, "n", "Should return n")
+        elif(value == 45):
+            self.assertEquals(result, "ne", "Should return ne")
+        elif(value == 90):
+            self.assertEquals(result, "e", "Should return e")
+        elif(value == 135):
+            self.assertEquals(result, "se", "Should return se")
+        elif(value == 180):
+            self.assertEquals(result, "s", "Should return s")
+        elif(value == 225):
+            self.assertEquals(result, "sw", "Should return sw")
+        elif(value == 270):
+            self.assertEquals(result, "w", "Should return w")
+        elif(value == 315):
+            self.assertEquals(result, "nw", "Should return nw")
+        else:
+            self.assertTrue(False)
+
+    def testConvertSpeedFromMeterSecondsToKilometersHours(self):
+        """
+            This function test to convert in m/s to km/h
+        """
+        self.assertEquals(Miscellaneaous.convertSpeedFromMeterSecondsToKilometersHours(5), 18, "Should return 18")

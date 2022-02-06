@@ -1,0 +1,16 @@
+fr:
+  init: "Init..."
+  temperature:
+    current: "Temperature courante : \n%{value}%{unit}"
+    feelslike: "Ressentie : \n%{value}%{unit}"
+    max: "Maximale : \n%{value}%{unit}"
+    min: "Minimale : \n%{value}%{unit}"
+    celsius: "°C"
+    fahrenheit: "°F"
+    kelvin: "K"
+  wind:
+    speed: "%{value}m/s"
+    direction: "%{value}°"
+  atmo:
+    pressure: "%{value}hPa"
+    humidity: "%{value}%%"

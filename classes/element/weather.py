@@ -1,132 +1,111 @@
-from classes.element import wind, position, temperature
+from classes.element.Wind import Wind
+from classes.element.Position import Position
+from classes.element.Temperature import Temperature
+from classes.element.Miscellaneous import Miscellaneaous
 
 class Weather:
-
     """
-    Cette classe represente la meteo du lieu que l'on monitore
+        This class represents a weather (wind, position, temperature, pressure, ...)
 
-    :author: Delmas Pierre <panda@delmasweb.net>
-    :date: 23 Janvier 2022
-    :version: 0.1
+        :author: Panda <panda@delmasweb.net>
+        :date: 23 Janvier 2022
+        :version: 1.0
     """
-    def __init__(self, wind : wind.Wind = None, position : position.Position = None, temperature : temperature.Temperature = None, pressure : int = -1, humidity : int = -1) -> None:
+    def __init__(self, wind : Wind = None, position : Position = None, temperature : Temperature = None, misc : Miscellaneaous = None) -> None:
 
         """
-        Constructeur
+            Constructor
 
-        :param wind: Le vent du lieu
-        :type wind: wind.Wind
-        :param position: La position du lieu
-        :type position: position.Position
-        :param temperature: La temperature du lieu
-        :type temperature: temperature.Temperature
-        :param pressure: La pression
-        :type pressure: int
-        :param humidity: L'humidite du lieu
-        :type humidity: int
+            :param wind: Optional; Default : None; Place's Wind
+            :type wind: Wind
+            :param position: Optional; Default : None; Position 
+            :type position: Position
+            :param temperature: Optional; Default : None; Place's temperature
+            :type temperature: Temperature
+            :param misc: Optional; Default : None; Place's misc data
+            :type misc: Miscellaneaous
         """
         self.setWind(wind)
         self.setPosition(position)
         self.setTemperature(temperature)
-        self.setPressure(pressure)
-        self.setHumidity(humidity)
+        self.setMisc(misc)
     
     def __str__(self) -> str:
         """
-        Retourne la classe sous la forme d'une chaine de caractere
+            Return the class as a string
 
-        :rtype: str
+            :rtype: str
         """
-        return "Wind : ["+str(self.getWind())+"], Position : ["+str(self.getPosition())+"], Temperature : ["+str(self.getTemperature())+"], Pressure : ["+str(self.getPressure())+"], Humidity : ["+str(self.getHumidity())+"]"
+        return "Wind : ["+str(self.getWind())+"], Position : ["+str(self.getPosition())+"], Temperature : ["+str(self.getTemperature())+"], Misc : ["+str(self.getMisc())+"]"
 
-    def setWind(self, wind : wind.Wind) -> None:
+    def setWind(self, wind : Wind) -> None:
         """
-        Setter du vent
+            Wind's setter
 
-        :param wind: Le vent du lieu
-        :type wind: wind.Wind
+            :param wind: Place's wind
+            :type wind: Wind
         """
         self.__wind = wind
 
-    def getWind(self) -> wind.Wind:
+    def getWind(self) -> Wind:
         """
-        Getter du vent
+            Wind's getter
 
-        :return: Le vent du lieu
-        :rtype: wind.Wind
+            :return: Place's wind
+            :rtype: Wind
         """
         return self.__wind
 
-    def setPosition(self, position : position.Position) -> None:
+    def setPosition(self, position : Position) -> None:
         """
-        Setter du vent
+            Place's position
 
-        :param position: Le vent du lieu
-        :type position: position.Position
+            :param position: Place's position
+            :type position: Position
         """
         self.__position = position
 
-    def getPosition(self) -> position.Position:
+    def getPosition(self) -> Position:
         """
-        Getter de la position
+            Position's getter
 
-        :return: Le position du lieu
-        :rtype: position.Position
+            :return: Place's position
+            :rtype: Position
         """
         return self.__position
 
-    def setTemperature(self, temperature : temperature.Temperature) -> None:
+    def setTemperature(self, temperature : Temperature) -> None:
         """
-        Setter de la temperature
+            Temperature's getter
 
-        :param temperature: La temperature du lieu
-        :type temperature: temperature.Temperature
+            :param temperature: Place's temperature
+            :type temperature: Temperature
         """
         self.__temperature = temperature
 
-    def getTemperature(self) -> temperature.Temperature:
+    def getTemperature(self) -> Temperature:
         """
-        Getter de la temperature
+            Temperature's getter
 
-        :return: La temperature du lieu
-        :rtype: temperature.Temperature
+            :return: Place's temperature
+            :rtype: Temperature
         """
         return self.__temperature
-    
-    def setPressure(self, pressure : int) -> None:
-        """
-        Setter de la pression
 
-        :param pressure: La pression du lieu
-        :type pressure: int
+    def setMisc(self, misc : Miscellaneaous) -> None:
         """
-        self.__pressure = pressure
+            Misc's setter
 
-    def getPressure(self) -> int:
+            :param misc: Place's misc data
+            :type misc: Miscellaneaous
         """
-        Getter de la pression
+        self.__misc = misc
 
-        :return: La pression du lieu
-        :rtype: int
+    def getMisc(self) -> Miscellaneaous:
         """
-        return self.__pressure
+            Misc's setter
 
-    def setHumidity(self, humidity : int) -> None:
+            :return: Place's misc data
+            :rtype: Miscellaneaous
         """
-        Setter de l'humidite
-
-        :param pressure: L'humidite
-        :type pressure: int
-        """
-        self.__humidity = humidity
-
-    def getHumidity(self) -> int:
-        """
-        Getter de l'humidite
-
-        :return: L'humidite
-        :rtype: int
-        """
-        return self.__humidity
-
-    
+        return self.__misc

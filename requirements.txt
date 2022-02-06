@@ -1,0 +1,6 @@
+dotenv
+pyqt6
+pyqt6-webengine
+python-i18n
+pytz
+folium

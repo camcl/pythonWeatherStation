@@ -1,0 +1,17 @@
+en:
+    init: "Init..."
+    temperature:
+        current: "Current temperature : \n%{value}%{unit}"
+        feelslike: "Feels like : \n%{value}%{unit}"
+        max: "Maximal : \n%{value}%{unit}"
+        min: "Minimal : \n%{value}%{unit}"
+        celsius: "°C"
+        fahrenheit: "°F"
+        kelvin: "K"
+    wind:
+        speed: "%{value}m/s"
+        direction: "%{value}°"
+    atmo:
+        pressure: "%{value}hPa"
+        humidity: "%{value}%%"
+    

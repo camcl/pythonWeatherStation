@@ -21,25 +21,25 @@ class WindTest(unittest.TestCase):
             This function test speed
         """
         self.wind.setSpeed(10)
-        self.assertEquals(self.wind.getSpeed(), 10)
+        self.assertEquals(self.wind.getSpeed(), 10, "Should be 10")
 
     def testDirectionValueOk(self):
         """
             This function test direction
         """
         self.wind.setDirection(10)
-        self.assertEquals(self.wind.getDirection(), 10)
+        self.assertEquals(self.wind.getDirection(), 10, "Should be 10")
 
     def testDirectionValueUp360(self):
         """
             This function test direction if the value is up 360°, should return the value - 360
         """
         self.wind.setDirection(460)
-        self.assertEquals(self.wind.getDirection(), 100)
+        self.assertEquals(self.wind.getDirection(), 100, "Should be 100")
 
     def testDirectionValueDown0(self):
         """
             This function test direction if the value is below 360°, should return the value + 360
         """
         self.wind.setDirection(-50)
-        self.assertEquals(self.wind.getDirection(), 310)
+        self.assertEquals(self.wind.getDirection(), 310, "Should be 310")

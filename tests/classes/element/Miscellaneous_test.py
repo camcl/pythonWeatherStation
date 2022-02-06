@@ -22,28 +22,28 @@ class TestMiscellaneous(unittest.TestCase):
             Test for set and get pressure
         """
         self.misc.setPressure(10)
-        self.assertEquals(self.misc.getPressure(), 10)
+        self.assertEquals(self.misc.getPressure(), 10, "Should be 10")
 
     def testHumidity(self):
         """
             Test for set and get humidity
         """
         self.misc.setHumidity(10)
-        self.assertEquals(self.misc.getHumidity(), 10)
+        self.assertEquals(self.misc.getHumidity(), 10, "Should be 10")
 
     def testSunset(self):
         """
             Test for set and get sunset
         """
         self.misc.setSunset(10)
-        self.assertEquals(self.misc.getSunset(), 10)
+        self.assertEquals(self.misc.getSunset(), 10, "Should be 10")
 
     def testSunrise(self):
         """
             Test for set and get sunrise
         """
         self.misc.setSunrise(10)
-        self.assertEquals(self.misc.getSunrise(), 10)
+        self.assertEquals(self.misc.getSunrise(), 10, "Should be 10")
     
     def testToString(self):
         """

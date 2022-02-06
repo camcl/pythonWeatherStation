@@ -1,10 +1,11 @@
 import os
 import sys
-import logging
 import i18n
 
 from dotenv import load_dotenv
-from configparser import ConfigParser
+from modules.logger.logger import Logger
+from modules.settings.settings import Settings
+
 from classes.element import Position
 from classes.element.Temperature import Temperature
 from classes.element.Weather import Weather
@@ -15,6 +16,7 @@ from views.lists.MyItem import MyItem
 from workers.CitiesWorker import CitiesWorker
 from workers.WeatherWorker import WeatherWorker
 
+
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import QThread
 
@@ -22,43 +24,13 @@ from PyQt6.QtCore import QThread
 hasToReadWeather = True
 confFileName = "conf/settings.ini"
 envFileName = "conf/.env"
-logger = logging.getLogger("WeatherApp")
 
 def cleanUp():
     """
         Cleaning function at application death
     """
     weatherWorker.setHasToReadWeather(False)
-    with open(confFileName, encoding="utf8", mode="w") as file:
-        configur.write(file)
-
-def loadLogger():
-    """
-        Loading loggers data
-    """
-    # Logs Formatting
-    formatter = logging.Formatter("%(asctime)s -- %(name)s -- %(levelname)s -- %(message)s")
-
-    # Handler for messages (critical and errors in one file, info in another and eventually debug in the stdout)
-    handler_critic = logging.FileHandler(configur.get('logging', 'critical'), mode="a", encoding="utf-8")
-    handler_info = logging.FileHandler(configur.get('logging', 'standard'), mode="a", encoding="utf-8")
-    handler_debug = logging.StreamHandler(sys.stdout)
-
-    # Setting the format for every handler
-    handler_critic.setFormatter(formatter)
-    handler_info.setFormatter(formatter)
-    handler_debug.setFormatter(formatter)
-
-    # Configuring the levels
-    handler_debug.setLevel(logging.DEBUG)
-    handler_info.setLevel(logging.INFO)
-    handler_critic.setLevel(logging.CRITICAL)
-
-    # Set the current level in conformity with the settings and add all handlers
-    logger.setLevel(configur.getint('logging', 'level'))
-    logger.addHandler(handler_critic)
-    logger.addHandler(handler_info)
-    logger.addHandler(handler_debug) # HACK : TO BE COMMENTED IN FINAL VERSION
+    Settings.getInstance().write()
 
 def progressWeatherWorker(weather : Weather) -> None:
     """
@@ -68,8 +40,11 @@ def progressWeatherWorker(weather : Weather) -> None:
         :type weather: Weather
     """
     if weather == None:
-        logger.error("No weather provided")
+        Logger.getInstance().error("No weather provided")
     else:
+        # Print the weather to debug for information
+        Logger.getInstance().debug(weather)
+
         # Default to Kelvin
         current = weather.getTemperature().getCurrent()
         feelsLike = weather.getTemperature().getFeelsLike()
@@ -78,13 +53,13 @@ def progressWeatherWorker(weather : Weather) -> None:
         unit = i18n.t('translate.temperature.kelvin')
 
         # If configuration ask for celsius or fahrenheit
-        if(configur.get('weather', 'tempUnit') == "c"):
+        if(Settings.getInstance().get('weather', 'tempUnit', 'c') == "c"):
             current = Temperature.fromKelvinToCelsius(current)
             feelsLike = Temperature.fromKelvinToCelsius(feelsLike)
             minT = Temperature.fromKelvinToCelsius(minT)
             maxT = Temperature.fromKelvinToCelsius(maxT)
             unit = i18n.t('translate.temperature.celsius')
-        elif(configur.get('weather', 'tempUnit') == "f"):
+        elif(Settings.getInstance().get('weather', 'tempUnit', 'c') == "f"):
             current = Temperature.fromKelvinToFahrenheit(current)
             feelsLike = Temperature.fromKelvinToFahrenheit(feelsLike)
             minT = Temperature.fromKelvinToFahrenheit(minT)
@@ -98,23 +73,20 @@ def progressWeatherWorker(weather : Weather) -> None:
         ex.getTemp().setMaxTempText(maxT, unit)
 
         # Set the sunrise/sunset values
-        ex.getSunHours().setSunriseValue(weather.getMisc().getSunrise(), configur.get('time','timezone'))
-        ex.getSunHours().setSunsetValue(weather.getMisc().getSunset(), configur.get('time','timezone'))
+        ex.getSunHours().setSunriseValue(weather.getMisc().getSunrise(), Settings.getInstance().get('time','timezone', 'utc'))
+        ex.getSunHours().setSunsetValue(weather.getMisc().getSunset(), Settings.getInstance().get('time','timezone', 'utc'))
 
         # Set the atmospheric data
         ex.getAtm().setWindSpeedValue(weather.getWind().getSpeed())
         ex.getAtm().setWindDirectionValue(weather.getWind().getDirection())
         ex.getAtm().setPressureValue(weather.getMisc().getPressure())
         ex.getAtm().setHumidityValue(weather.getMisc().getHumidity())
-
-        # Print the weather to debug for information
-        # logger.debug(weather)
-
+        
 def finishedWeatherWorker() -> None:
     """
         Function to be executed when the finished signal of the weather worker is sent
     """
-    logger.info("Weather worker has finished")
+    Logger.getInstance().info("Weather worker has finished")
 
 def progressCitiesWorker(item : MyItem) -> None:
     """
@@ -129,21 +101,21 @@ def progressCitiesWorker(item : MyItem) -> None:
             ex.getCitiesList().setCurrentItem(item)
             newCityChoosen(item.getPosition())
     else:
-        logger.error("Cities can't load properly")
+        Logger.getInstance().error("Cities can't load properly")
 
 def finishedCitiesWorker() -> None:
     """
         The function to executed when the finished signal of the cities worker is called
     """
     ex.update()
-    logger.debug("Cities loading finished")
+    Logger.getInstance().debug("Cities loading finished")
 
 def newCityChoosen(position : Position.Position) -> None:
     """
         This function set a new position in the weather worker and the config file to be saved
     """
-    logger.debug("New city choosen : "+str(position))
-    configur.set('cities', 'choosen', value=str(position.getId()))
+    Logger.getInstance().debug("New city choosen : "+str(position))
+    Settings.getInstance().set('cities', 'choosen', value=str(position.getId()))
     weatherWorker.setCurrentPosition(position)
 
 def i18nLoading(translationPath : str, locale : str) -> None:
@@ -165,14 +137,15 @@ if __name__=="__main__":
 
     # Opening informations in .env and .ini files
     load_dotenv(envFileName)
-    configur = ConfigParser()
-    configur.read(confFileName)
 
     # Logger loading
-    loadLogger()
+    Logger.getInstance().loadLogger()
+
+    # Load settings
+    Settings.getInstance().loadSettings('./conf/settings.ini')
 
     # Loading the translations
-    i18nLoading(configur.get('language', 'folder'), configur.get('language', 'locale'))
+    i18nLoading(Settings.getInstance().get('language', 'folder', "./resources"), Settings.getInstance().get('language', 'locale', 'en'))
 
     # Application starting and cleanup adding
     app=QApplication(sys.argv)
@@ -188,7 +161,7 @@ if __name__=="__main__":
     weatherWorker = WeatherWorker()
     weatherWorker.setHasToReadWeather(True)
     weatherWorker.setApiKey(os.getenv("API_KEY"))
-    weatherWorker.setDelayTime(configur.getint('weather', 'delay'))
+    weatherWorker.setDelayTime(Settings.getInstance().getint('weather', 'delay', 60))
     weatherWorker.moveToThread(t1)
 
     t1.started.connect(weatherWorker.run) # Connect the main loop of the thread
@@ -202,8 +175,8 @@ if __name__=="__main__":
     # City reading thread (for reading through the quite long resources file)
     t2 = QThread()
     citiesWorker = CitiesWorker()
-    citiesWorker.setCitiesFileName(configur.get('cities', 'filename'))
-    citiesWorker.setChoosenCity(configur.getint('cities', 'choosen'))
+    citiesWorker.setCitiesFileName(Settings.getInstance().get('cities', 'filename', './resources/filtered.list.json'))
+    citiesWorker.setChoosenCity(Settings.getInstance().getint('cities', 'choosen', 0))
     citiesWorker.moveToThread(t2)
 
     t2.started.connect(citiesWorker.run) # Connecting the main loop of the thread

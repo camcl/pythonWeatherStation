@@ -41,7 +41,6 @@ class HoursItem(BasicItem):
 
         # The hour of sunrise
         self.__sunrise = QLabel()
-        self.__sunrise.setStyleSheet("QLabel { background-color : red; }")
         self.__sunrise.setText(i18n.t("translate.init"))
         self.__sunrise.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__sunrise.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -49,7 +48,6 @@ class HoursItem(BasicItem):
 
         # The hour of sunset
         self.__sunset = QLabel()
-        self.__sunset.setStyleSheet("QLabel { background-color : aqua; }")
         self.__sunset.setText(i18n.t("translate.init"))
         self.__sunset.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__sunset.setAlignment(Qt.AlignmentFlag.AlignCenter)

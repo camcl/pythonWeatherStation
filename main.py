@@ -17,7 +17,6 @@ from views.lists.MyItem import MyItem
 from workers.CitiesWorker import CitiesWorker
 from workers.WeatherWorker import WeatherWorker
 
-
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import QThread
 
@@ -191,6 +190,8 @@ if __name__=="__main__":
     # Application starting and cleanup adding
     app=QApplication(sys.argv)
     app.aboutToQuit.connect(cleanUp)
+    with open(Settings.getInstance().get('style', 'file', './resources/main.qss')) as styleFile:
+        app.setStyleSheet(styleFile.read())
 
     # Main window creation and signals adding
     # x=0,y=0,width=app.primaryScreen().size().width(),height=app.primaryScreen().size().height()

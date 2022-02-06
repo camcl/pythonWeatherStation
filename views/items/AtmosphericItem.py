@@ -35,28 +35,24 @@ class AtmosphericItem(BasicItem):
             Init the widget
         """
         self.__windSpeed = QLabel()
-        self.__windSpeed.setStyleSheet("QLabel { background-color : yellow; }")
         self.__windSpeed.setText(i18n.t("translate.init"))
         self.__windSpeed.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__windSpeed.setAlignment(Qt.AlignmentFlag.AlignCenter)
         super().getGridLayout().addWidget(self.__windSpeed, 0, 0, 1, 1)
 
         self.__windDirection = QLabel()
-        self.__windDirection.setStyleSheet("QLabel { background-color : blue; }")
         self.__windDirection.setText(i18n.t("translate.init"))
         self.__windDirection.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__windDirection.setAlignment(Qt.AlignmentFlag.AlignCenter)
         super().getGridLayout().addWidget(self.__windDirection, 0, 1, 1, 1)
 
         self.__pressure = QLabel()
-        self.__pressure.setStyleSheet("QLabel { background-color : red; }")
         self.__pressure.setText(i18n.t("translate.init"))
         self.__pressure.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__pressure.setAlignment(Qt.AlignmentFlag.AlignCenter)
         super().getGridLayout().addWidget(self.__pressure, 0, 2, 1, 1)
 
         self.__humidity = QLabel()
-        self.__humidity.setStyleSheet("QLabel { background-color : purple; }")
         self.__humidity.setText(i18n.t("translate.init"))
         self.__humidity.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__humidity.setAlignment(Qt.AlignmentFlag.AlignCenter)

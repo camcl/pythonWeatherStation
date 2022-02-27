@@ -104,3 +104,32 @@ class Miscellaneaous:
             :rtype: int
         """
         return self.__sunrise
+
+    def convertDirectionDegreesInDirectionString(value : float) -> str:
+        """
+            This function convert an angle on the plan to the associate 8-part
+
+            :param value: The direction
+            :type value: float
+            :return: The associated part in lower case as a code (ne, n, sw, ...)
+            :rtype: str
+        """
+        if(value >= 22.5 and value < 67.5):
+            return "ne"
+        elif(value >= 67.5 and value < 112.5):
+            return "e"
+        elif(value >= 112.5 and value < 157.5):
+            return "se"
+        elif(value >= 157.5 and value < 202.5):
+            return "s"
+        elif(value >= 202.5 and value < 247.5):
+            return "sw"
+        elif(value >= 247.5 and value < 292.5):
+            return "w"
+        elif(value >= 292.5 and value < 337.5):
+            return "nw"
+        else:
+            return "n"
+
+    def convertSpeedFromMeterSecondsToKilometersHours(value : float) -> float:
+        return round(value * 3.6, 2)

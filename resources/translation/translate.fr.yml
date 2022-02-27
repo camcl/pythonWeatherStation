@@ -1,7 +1,7 @@
 fr:
   init: "Init..."
   temperature:
-    current: "Temperature courante : \n%{value}%{unit}"
+    current: "Température\ncourante : \n%{value}%{unit}"
     feelslike: "Ressentie : \n%{value}%{unit}"
     max: "Maximale : \n%{value}%{unit}"
     min: "Minimale : \n%{value}%{unit}"
@@ -9,8 +9,19 @@ fr:
     fahrenheit: "°F"
     kelvin: "K"
   wind:
-    speed: "%{value}m/s"
-    direction: "%{value}°"
+    speed: "Vitesse du vent :\n%{value}km/h"
+    direction: "Direction du vent :\n%{value}"
+    n: "Nord"
+    ne: "Nord-Est"
+    e: "Est"
+    se: "Sud-Est"
+    s: "Sud"
+    sw: "Sud-Ouest"
+    w: "Ouest"
+    nw: "Nord-Ouest"
+  time:
+    sunset: "Heure de coucher\ndu soleil :\n%{hour}"
+    sunrise: "Heure de lever\ndu soleil :\n%{hour}"
   atmo:
-    pressure: "%{value}hPa"
-    humidity: "%{value}%%"
+    pressure: "Pression (MSL) :\n%{value}hPa"
+    humidity: "Humidité :\n%{value}%%"

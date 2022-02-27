@@ -40,20 +40,18 @@ class HoursItem(BasicItem):
         """
 
         # The hour of sunrise
-        self.__sunrise = QLabel()
-        self.__sunrise.setStyleSheet("QLabel { background-color : red; }")
-        self.__sunrise.setText(i18n.t("translate.init"))
-        self.__sunrise.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
-        self.__sunrise.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        super().getGridLayout().addWidget(self.__sunrise, 0, 0, 1, 1)
+        self.__sunriseLabel = QLabel()
+        self.__sunriseLabel.setText(i18n.t("translate.init"))
+        self.__sunriseLabel.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
+        self.__sunriseLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        super().getGridLayout().addWidget(self.__sunriseLabel, 0, 0, 1, 1)
 
         # The hour of sunset
-        self.__sunset = QLabel()
-        self.__sunset.setStyleSheet("QLabel { background-color : aqua; }")
-        self.__sunset.setText(i18n.t("translate.init"))
-        self.__sunset.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
-        self.__sunset.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        super().getGridLayout().addWidget(self.__sunset, 1, 0, 1, 1)
+        self.__sunsetLabel = QLabel()
+        self.__sunsetLabel.setText(i18n.t("translate.init"))
+        self.__sunsetLabel.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
+        self.__sunsetLabel.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        super().getGridLayout().addWidget(self.__sunsetLabel, 1, 0, 1, 1)
 
     def setSunsetValue(self, sunset : int, zone : str = "Etc/Greenwich") -> None:
         """
@@ -65,10 +63,10 @@ class HoursItem(BasicItem):
             :type zone: str
         """
         if(sunset == -1):
-            self.__sunset.setText(i18n.t("translate.init"))
+            self.__sunsetLabel.setText(i18n.t("translate.init"))
         else:
             format="%H:%M:%S"
-            self.__sunset.setText(datetime.fromtimestamp(sunset, tz=timezone(zone)).strftime(format))
+            self.__sunsetLabel.setText(i18n.t("translate.time.sunset", hour=datetime.fromtimestamp(sunset, tz=timezone(zone)).strftime(format)))
 
     def setSunriseValue(self, sunrise : int, zone : str = "Etc/Greenwich") -> None:
         """
@@ -80,7 +78,7 @@ class HoursItem(BasicItem):
             :type zone: str
         """
         if(sunrise == -1):
-            self.__sunrise.setText(i18n.t("translate.init"))
+            self.__sunriseLabel.setText(i18n.t("translate.init"))
         else:
             format="%H:%M:%S"
-            self.__sunrise.setText(datetime.fromtimestamp(sunrise, tz=timezone(zone)).strftime(format))
+            self.__sunriseLabel.setText(i18n.t("translate.time.sunrise", hour=datetime.fromtimestamp(sunrise, tz=timezone(zone)).strftime(format)))

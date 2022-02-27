@@ -9,9 +9,20 @@ en:
         fahrenheit: "°F"
         kelvin: "K"
     wind:
-        speed: "%{value}m/s"
-        direction: "%{value}°"
+        speed: "Wind speed :\n%{value}km/h"
+        direction: "Wind direction :\n%{value}"
+        n: "North"
+        ne: "North-East"
+        e: "East"
+        se: "South-East"
+        s: "South"
+        sw: "South-West"
+        w: "West"
+        nw: "North-West"
+    time:
+        sunset: "Sunset hour :\n%{hour}"
+        sunrise: "Sunrise hour :\n%{hour}"
     atmo:
-        pressure: "%{value}hPa"
-        humidity: "%{value}%%"
+        pressure: "Pressure (MSL):\n%{value}hPa"
+        humidity: "Humidity :%{value}%%"
     

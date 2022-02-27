@@ -4,6 +4,7 @@ import i18n
 import getopt
 
 from dotenv import load_dotenv
+from classes.element.Miscellaneous import Miscellaneaous
 from modules.logger.logger import Logger
 from modules.settings.settings import Settings
 
@@ -16,7 +17,6 @@ from views.lists.MyItem import MyItem
 
 from workers.CitiesWorker import CitiesWorker
 from workers.WeatherWorker import WeatherWorker
-
 
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import QThread
@@ -84,7 +84,7 @@ def progressWeatherWorker(weather : Weather) -> None:
 
         # Set the atmospheric data
         ex.getAtm().setWindSpeedValue(weather.getWind().getSpeed())
-        ex.getAtm().setWindDirectionValue(weather.getWind().getDirection())
+        ex.getAtm().setWindDirectionValue(i18n.t("translate.wind."+Miscellaneaous.convertDirectionDegreesInDirectionString(weather.getWind().getDirection())))
         ex.getAtm().setPressureValue(weather.getMisc().getPressure())
         ex.getAtm().setHumidityValue(weather.getMisc().getHumidity())
         
@@ -191,10 +191,11 @@ if __name__=="__main__":
     # Application starting and cleanup adding
     app=QApplication(sys.argv)
     app.aboutToQuit.connect(cleanUp)
+    with open(Settings.getInstance().get('style', 'file', './resources/main.qss')) as styleFile:
+        app.setStyleSheet(styleFile.read())
 
     # Main window creation and signals adding
-    # x=0,y=0,width=app.primaryScreen().size().width(),height=app.primaryScreen().size().height()
-    ex=MainFrame()
+    ex=MainFrame(x=0,y=0,width=app.primaryScreen().size().width(),height=app.primaryScreen().size().height())
     ex.clickedSig.connect(newCityChoosen) # Add a signal on a list item click
 
     # Starting the weather reading thread

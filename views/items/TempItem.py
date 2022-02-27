@@ -39,7 +39,6 @@ class TempItem(BasicItem):
         """
         # Current temperature label
         self.__labelCurrent = QLabel()
-        self.__labelCurrent.setStyleSheet("QLabel { background-color : red; }")
         self.__labelCurrent.setText(i18n.t("translate.init"))
         self.__labelCurrent.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__labelCurrent.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -52,7 +51,6 @@ class TempItem(BasicItem):
         
         # Feels like temperature
         self.__labelFeels = QLabel()
-        self.__labelFeels.setStyleSheet("QLabel { background-color : yellow; }")
         self.__labelFeels.setText(i18n.t("translate.init"))
         self.__labelFeels.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__labelFeels.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -60,7 +58,6 @@ class TempItem(BasicItem):
 
         # Minimal temperature
         self.__labelMin = QLabel()
-        self.__labelMin.setStyleSheet("QLabel { background-color : purple; }")
         self.__labelMin.setText(i18n.t("translate.init"))
         self.__labelMin.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__labelMin.setAlignment(Qt.AlignmentFlag.AlignCenter)
@@ -68,7 +65,6 @@ class TempItem(BasicItem):
 
         # Maximal temperature
         self.__labelMax = QLabel()
-        self.__labelMax.setStyleSheet("QLabel { background-color : orange; }")
         self.__labelMax.setText(i18n.t("translate.init"))
         self.__labelMax.setSizePolicy(QSizePolicy.Policy.MinimumExpanding, QSizePolicy.Policy.Preferred)
         self.__labelMax.setAlignment(Qt.AlignmentFlag.AlignCenter)

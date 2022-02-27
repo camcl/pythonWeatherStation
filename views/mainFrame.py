@@ -1,7 +1,5 @@
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QMainWindow, QWidget
-from views.items.MapItem import MapItem
-
 from views.lists.MyItem import MyItem
 from views.lists.CityList import CityList
 from views.items.HoursItem import HoursItem
@@ -72,10 +70,6 @@ class MainFrame(QMainWindow):
         # Creating the atmo item
         atm = AtmosphericItem(x=self.__width * 0.1, y=self.__height * 0.7, width=self.__width * 0.8, height=self.__height * 0.15)
         self.__setAtm(atm)
-
-        # The map
-        #mMap = MapItem(x=self.__width * 0.1, y=self.__height * 0.1, width=self.__width * 0.6, height=self.__height * 0.6)
-        #self.__setMap(mMap)
 
         # Setting the size of the window
         self.setFixedSize(self.__width, self.__height)
@@ -164,27 +158,6 @@ class MainFrame(QMainWindow):
         """
         if(hasattr(self, '_MainFrame__atm')):
             return self.__atm
-        return None
-
-    def __setMap(self, mMap : MapItem) -> None:
-        """
-            Map widget setter
-
-            :param map: The widget of sun hours
-            :type map: MapItem
-        """
-        self.__map = mMap
-        self.layout().addChildWidget(self.__map)
-
-    def getMap(self) -> MapItem:
-        """
-            Atm widget getter
-
-            :return: The widget of atm
-            :rtype: MapItem
-        """
-        if(hasattr(self, '_MainFrame__map')):
-            return self.__map
         return None
 
     def clicked(self, item : MyItem) -> None:

@@ -2,3 +2,4 @@ python-dotenv
 pyqt6
 python-i18n
 pytz
+ddt

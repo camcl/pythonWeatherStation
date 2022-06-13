@@ -1,12 +1,12 @@
 from PyQt6.QtCore import pyqtSignal
 from PyQt6.QtWidgets import QMainWindow, QWidget
-from views.lists.MyItem import MyItem
-from views.lists.CityList import CityList
-from views.items.HoursItem import HoursItem
-from views.items.TempItem import TempItem
-from views.items.AtmosphericItem import AtmosphericItem
+from views.lists.myItem import MyItem
+from views.lists.cityList import CityList
+from views.items.hoursItem import HoursItem
+from views.items.tempItem import TempItem
+from views.items.atmosphericItem import AtmosphericItem
 
-from classes.element.Position import Position
+from classes.element.position import Position
 
 class MainFrame(QMainWindow):
     """

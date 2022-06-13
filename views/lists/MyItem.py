@@ -1,6 +1,6 @@
 from PyQt6.QtWidgets import QListWidgetItem
 
-from classes.element.Position import Position
+from classes.element.position import Position
 
 class MyItem(QListWidgetItem):
     """

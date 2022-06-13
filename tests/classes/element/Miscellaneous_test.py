@@ -1,6 +1,6 @@
 import unittest
 from ddt import ddt, data
-from classes.element.Miscellaneous import Miscellaneaous
+from classes.element.miscellaneous import Miscellaneaous
 
 @ddt
 class TestMiscellaneous(unittest.TestCase):

@@ -1,5 +1,5 @@
 import unittest
-from classes.element.Temperature import Temperature
+from classes.element.temperature import Temperature
 
 class TestTemperature(unittest.TestCase):
     """

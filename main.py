@@ -4,25 +4,22 @@ import i18n
 import getopt
 
 from dotenv import load_dotenv
-from classes.element.Miscellaneous import Miscellaneaous
+from classes.element.miscellaneous import Miscellaneaous
 from modules.logger.logger import Logger
 from modules.settings.settings import Settings
 
-from classes.element.Position import Position
-from classes.element.Temperature import Temperature
-from classes.element.Weather import Weather
+from classes.element import position
+from classes.element.temperature import Temperature
+from classes.element.weather import Weather
 
 from views.mainFrame import MainFrame
-from views.lists.MyItem import MyItem
+from views.lists.myItem import MyItem
 
-from workers.CitiesWorker import CitiesWorker
-from workers.WeatherWorker import WeatherWorker
+from workers.citiesWorker import CitiesWorker
+from workers.weatherWorker import WeatherWorker
 
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import QThread
-
-# Add the current path to the path
-sys.path.append('/.')
 
 # Globals used by all threads
 hasToReadWeather = True
@@ -119,7 +116,7 @@ def finishedCitiesWorker() -> None:
     ex.update()
     Logger.getInstance().debug("Cities loading finished")
 
-def newCityChoosen(position : Position.Position) -> None:
+def newCityChoosen(position : position.Position) -> None:
     """
         This function set a new position in the weather worker and the config file to be saved
     """

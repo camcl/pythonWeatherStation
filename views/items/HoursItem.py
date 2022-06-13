@@ -1,7 +1,7 @@
 from PyQt6.QtCore import Qt
 from PyQt6.QtWidgets import QWidget, QLabel, QGridLayout, QSizePolicy
 
-from views.items.BasicItem import BasicItem
+from views.items.basicItem import BasicItem
 
 from datetime import datetime
 import i18n

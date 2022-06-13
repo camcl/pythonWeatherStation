@@ -1,5 +1,5 @@
 import unittest
-from classes.element.Wind import Wind
+from classes.element.wind import Wind
 
 class WindTest(unittest.TestCase):
     """

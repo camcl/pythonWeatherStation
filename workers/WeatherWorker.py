@@ -3,11 +3,11 @@ from time import sleep
 from PyQt6.QtCore import QObject, pyqtSignal
 
 from classes.httpRequest.DataRequest import DataRequest
-from classes.element.Position import Position
-from classes.element.Temperature import Temperature
-from classes.element.Wind import Wind
-from classes.element.Weather import Weather
-from classes.element.Miscellaneous import Miscellaneaous
+from classes.element.position import Position
+from classes.element.temperature import Temperature
+from classes.element.wind import Wind
+from classes.element.weather import Weather
+from classes.element.miscellaneous import Miscellaneaous
 
 class WeatherWorker(QObject):
     """

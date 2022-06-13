@@ -1,7 +1,7 @@
-from classes.element.Wind import Wind
-from classes.element.Position import Position
-from classes.element.Temperature import Temperature
-from classes.element.Miscellaneous import Miscellaneaous
+from classes.element.wind import Wind
+from classes.element.position import Position
+from classes.element.temperature import Temperature
+from classes.element.miscellaneous import Miscellaneaous
 
 class Weather:
     """

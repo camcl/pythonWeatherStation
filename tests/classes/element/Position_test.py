@@ -1,5 +1,5 @@
 import unittest
-from classes.element.Position import Position
+from classes.element.position import Position
 
 class TestPosition(unittest.TestCase):
     """

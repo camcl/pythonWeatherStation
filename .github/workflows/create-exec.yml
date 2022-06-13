@@ -27,6 +27,6 @@ jobs:
         pyinstaller -F -w --icon=resources/images/icon.png main.py
     - uses: actions/upload-artifact@v3
       with:
-      name: Ubuntu Artifact
-      path: dist/main
+        name: Ubuntu Artifact
+        path: dist/main
   

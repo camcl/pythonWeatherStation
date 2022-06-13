@@ -21,6 +21,9 @@ from workers.WeatherWorker import WeatherWorker
 from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import QThread
 
+# Add the current path to the path
+sys.path.append('.')
+
 # Globals used by all threads
 hasToReadWeather = True
 

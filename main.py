@@ -8,7 +8,7 @@ from classes.element.Miscellaneous import Miscellaneaous
 from modules.logger.logger import Logger
 from modules.settings.settings import Settings
 
-from classes.element import Position
+from classes.element.Position import Position
 from classes.element.Temperature import Temperature
 from classes.element.Weather import Weather
 
@@ -22,7 +22,7 @@ from PyQt6.QtWidgets import QApplication
 from PyQt6.QtCore import QThread
 
 # Add the current path to the path
-sys.path.append('.')
+sys.path.append('/.')
 
 # Globals used by all threads
 hasToReadWeather = True

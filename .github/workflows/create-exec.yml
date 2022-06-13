@@ -2,9 +2,8 @@ name: Create Executable
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+    tags:
+      '*'
 
 jobs:
   linux:
@@ -27,6 +26,48 @@ jobs:
         pyinstaller -F -w --icon=resources/images/icon.png main.py
     - uses: actions/upload-artifact@v3
       with:
-        name: Ubuntu Artifact
+        name: Ubuntu x64 Artifact
+        path: dist/main
+  windows:
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.9"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install -r requirements-devel.txt
+        python -m pip install pyinstaller
+    - name: Create Executable
+      run: |
+        pyinstaller -F -w --icon=resources/images/icon.png main.py
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Windows x64 Artifact
+        path: dist/main.exe
+  macos:
+    runs-on: macos-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.9"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install -r requirements-devel.txt
+        python -m pip install pyinstaller
+    - name: Create Executable
+      run: |
+        pyinstaller -F -w --icon=resources/images/icon.png main.py
+    - uses: actions/upload-artifact@v3
+      with:
+        name: MacOS Artifact
         path: dist/main
   

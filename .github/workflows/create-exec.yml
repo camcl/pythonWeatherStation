@@ -1,4 +1,4 @@
-name: Python Weather App
+name: Create Executable
 
 on:
   push:
